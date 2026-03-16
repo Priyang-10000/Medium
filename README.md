@@ -1,2 +1,2 @@
 # Medium
-Github repo for infographics posted on Medium (part of the Infographic Studio Project).
+Github repo for infographics posted on Blogger (part of the Infographic Studio Project).
