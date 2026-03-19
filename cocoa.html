@@ -1,0 +1,1445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cocoa: The World's Bittersweet Commodity</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+  :root {
+    --bg-primary: #0a0a0f;
+    --bg-secondary: #111118;
+    --bg-card: #16161f;
+    --bg-card2: #1c1c28;
+    --border: #2a2a3a;
+    --accent-gold: #d4a843;
+    --accent-brown: #8b5e3c;
+    --accent-amber: #f59e0b;
+    --accent-green: #22c55e;
+    --accent-red: #ef4444;
+    --accent-blue: #3b82f6;
+    --accent-purple: #a855f7;
+    --text-primary: #f0ece3;
+    --text-secondary: #9992a7;
+    --text-muted: #5a5470;
+    --glow-gold: rgba(212,168,67,0.15);
+    --glow-brown: rgba(139,94,60,0.2);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* HERO */
+  .hero {
+    background: linear-gradient(135deg, #0a0a0f 0%, #1a0f05 40%, #0f0d1a 100%);
+    padding: 60px 40px 50px;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -100px; left: -100px;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(212,168,67,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -80px; right: -80px;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(139,94,60,0.1) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 40px;
+    align-items: center;
+    max-width: 1400px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(212,168,67,0.1);
+    border: 1px solid rgba(212,168,67,0.3);
+    border-radius: 20px;
+    padding: 6px 16px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent-gold);
+    margin-bottom: 20px;
+  }
+
+  .hero-badge::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--accent-gold);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.3); }
+  }
+
+  .hero h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(42px, 6vw, 80px);
+    font-weight: 800;
+    line-height: 1.05;
+    background: linear-gradient(135deg, #f5e6c8 0%, #d4a843 50%, #8b5e3c 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 16px;
+  }
+
+  .hero-sub {
+    font-size: 16px;
+    color: var(--text-secondary);
+    max-width: 500px;
+    line-height: 1.6;
+    margin-bottom: 32px;
+  }
+
+  .hero-stats-row {
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+
+  .hero-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .hero-stat .val {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--accent-gold);
+  }
+
+  .hero-stat .lbl {
+    font-size: 11px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .hero-svg {
+    width: 220px;
+    flex-shrink: 0;
+  }
+
+  /* MAIN GRID */
+  .main-wrap {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 40px 40px 60px;
+    display: grid;
+    gap: 28px;
+  }
+
+  /* SECTION LABEL */
+  .section-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 20px;
+  }
+
+  .section-label::before {
+    content: '';
+    width: 24px; height: 2px;
+    background: var(--accent-gold);
+  }
+
+  /* CARD */
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent-gold), var(--accent-brown), transparent);
+  }
+
+  .card-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 6px;
+  }
+
+  .card-sub {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-bottom: 24px;
+    line-height: 1.5;
+  }
+
+  /* ROW LAYOUTS */
+  .row-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+  .row-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px; }
+  .row-2-3 { display: grid; grid-template-columns: 2fr 3fr; gap: 28px; }
+  .row-3-2 { display: grid; grid-template-columns: 3fr 2fr; gap: 28px; }
+
+  /* STAT CARDS */
+  .stat-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .stat-card .icon-wrap {
+    width: 44px; height: 44px;
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+    margin-bottom: 6px;
+  }
+
+  .stat-card .big-val {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 36px;
+    font-weight: 800;
+    line-height: 1;
+  }
+
+  .stat-card .big-label {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.4;
+  }
+
+  .stat-card .tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 20px;
+    margin-top: 4px;
+    width: fit-content;
+  }
+
+  .tag-green { background: rgba(34,197,94,0.12); color: #22c55e; }
+  .tag-red { background: rgba(239,68,68,0.12); color: #ef4444; }
+  .tag-gold { background: rgba(212,168,67,0.12); color: var(--accent-gold); }
+  .tag-blue { background: rgba(59,130,246,0.12); color: #3b82f6; }
+  .tag-purple { background: rgba(168,85,247,0.12); color: #a855f7; }
+
+  /* VBAR CHART */
+  .vbar-chart {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+    height: 180px;
+    padding-bottom: 28px;
+    position: relative;
+  }
+
+  .vbar-chart::before {
+    content: '';
+    position: absolute;
+    bottom: 28px; left: 0; right: 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .vbar-group {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    height: 100%;
+    justify-content: flex-end;
+  }
+
+  .vbar-val {
+    font-size: 9px;
+    font-weight: 700;
+    color: var(--text-secondary);
+    white-space: nowrap;
+  }
+
+  .vbar {
+    width: 100%;
+    border-radius: 5px 5px 0 0;
+    transition: all 0.3s ease;
+    position: relative;
+    min-height: 4px;
+  }
+
+  .vbar-lbl {
+    font-size: 9px;
+    color: var(--text-muted);
+    text-align: center;
+    position: absolute;
+    bottom: -22px;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+  }
+
+  /* HBAR CHART */
+  .hbar-row {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .hbar-item {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .hbar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .hbar-name {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-primary);
+  }
+
+  .hbar-val {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--accent-gold);
+    font-family: 'Space Grotesk', sans-serif;
+  }
+
+  .hbar-track {
+    width: 100%;
+    height: 8px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .hbar-fill {
+    height: 100%;
+    border-radius: 4px;
+  }
+
+  /* DONUT CHART */
+  .donut-wrap {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+  }
+
+  .donut-svg {
+    flex-shrink: 0;
+  }
+
+  .donut-legend {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex: 1;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 12px;
+  }
+
+  .legend-dot {
+    width: 10px; height: 10px;
+    border-radius: 3px;
+    flex-shrink: 0;
+  }
+
+  .legend-name { color: var(--text-secondary); flex: 1; }
+  .legend-val { font-weight: 700; color: var(--text-primary); font-family: 'Space Grotesk', sans-serif; }
+
+  /* LINE CHART */
+  .line-chart-wrap {
+    position: relative;
+    height: 200px;
+  }
+
+  /* PRICE TIMELINE */
+  .price-timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .price-row {
+    display: grid;
+    grid-template-columns: 80px 1fr auto;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .price-year {
+    font-size: 11px;
+    color: var(--text-muted);
+    font-weight: 600;
+  }
+
+  .price-bar-track {
+    height: 6px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .price-bar-fill {
+    height: 100%;
+    border-radius: 3px;
+  }
+
+  .price-val {
+    font-size: 12px;
+    font-weight: 700;
+    font-family: 'Space Grotesk', sans-serif;
+    color: var(--accent-gold);
+    text-align: right;
+    min-width: 80px;
+  }
+
+  /* INFO GRID */
+  .info-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+
+  .info-tile {
+    background: var(--bg-card2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px;
+  }
+
+  .info-tile .it-label {
+    font-size: 10px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 8px;
+  }
+
+  .info-tile .it-val {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+  }
+
+  .info-tile .it-sub {
+    font-size: 11px;
+    color: var(--text-muted);
+    line-height: 1.4;
+  }
+
+  /* EVENT LIST */
+  .event-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .event-item {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+
+  .event-dot-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    padding-top: 4px;
+  }
+
+  .event-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .event-line {
+    width: 1px;
+    flex: 1;
+    background: var(--border);
+    min-height: 30px;
+    margin-top: 4px;
+  }
+
+  .event-date {
+    font-size: 10px;
+    color: var(--text-muted);
+    font-weight: 600;
+    white-space: nowrap;
+    padding-top: 2px;
+    min-width: 70px;
+  }
+
+  .event-text {
+    font-size: 12px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    padding-top: 2px;
+  }
+
+  .event-text strong {
+    color: var(--text-primary);
+    font-weight: 600;
+  }
+
+  /* KEY PLAYERS */
+  .players-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .player-chip {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--bg-card2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-size: 12px;
+    color: var(--text-secondary);
+    font-weight: 500;
+  }
+
+  .player-chip .player-ico {
+    width: 28px; height: 28px;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px;
+    flex-shrink: 0;
+  }
+
+  /* DIVIDER */
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border), transparent);
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--bg-secondary);
+    border-top: 1px solid var(--border);
+    padding: 28px 40px;
+    max-width: 100%;
+  }
+
+  .footer-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .footer-title {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+  }
+
+  .footer-sources {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .footer-source {
+    font-size: 11px;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+
+  .footer-source a {
+    color: var(--accent-gold);
+    text-decoration: none;
+  }
+
+  .footer-disclaimer {
+    font-size: 10px;
+    color: #3a3450;
+    margin-top: 8px;
+    padding-top: 10px;
+    border-top: 1px solid var(--border);
+  }
+
+  /* GRID OVERLAY */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+    background-size: 50px 50px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .hero, .main-wrap, footer { position: relative; z-index: 1; }
+
+  .glow-text { color: var(--accent-gold); }
+
+  /* SVG line chart grid */
+  .chart-grid line { stroke: var(--border); stroke-width: 0.5; }
+  .chart-grid text { fill: var(--text-muted); font-size: 9px; font-family: Inter, sans-serif; }
+
+  /* Responsive tweaks */
+  @media (max-width: 900px) {
+    .row-3 { grid-template-columns: 1fr; }
+    .row-2 { grid-template-columns: 1fr; }
+    .row-2-3 { grid-template-columns: 1fr; }
+    .row-3-2 { grid-template-columns: 1fr; }
+    .hero-grid { grid-template-columns: 1fr; }
+    .hero-svg { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══ HERO ═══ -->
+<div class="hero">
+  <div class="hero-grid">
+    <div>
+      <div class="hero-badge">Global Market Intelligence · 2026</div>
+      <h1>Cocoa</h1>
+      <p class="hero-sub">From West African farms to luxury chocolatiers — the bittersweet story of the world's most volatile soft commodity, its supply shocks, record-breaking price swings, and a $18B market future.</p>
+      <div class="hero-stats-row">
+        <div class="hero-stat">
+          <span class="val">$12.5B</span>
+          <span class="lbl">Market Value 2022</span>
+        </div>
+        <div class="hero-stat">
+          <span class="val">$18.02B</span>
+          <span class="lbl">Forecast by 2030</span>
+        </div>
+        <div class="hero-stat">
+          <span class="val">4.7%</span>
+          <span class="lbl">CAGR 2024–2031</span>
+        </div>
+        <div class="hero-stat">
+          <span class="val">$12,906</span>
+          <span class="lbl">All-Time High /MT</span>
+        </div>
+      </div>
+    </div>
+    <!-- SVG Cocoa Pod Illustration -->
+    <svg class="hero-svg" viewBox="0 0 220 280" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Background glow -->
+      <ellipse cx="110" cy="140" rx="90" ry="110" fill="url(#heroGlow)"/>
+      <!-- Pod body -->
+      <ellipse cx="110" cy="155" rx="62" ry="85" fill="url(#podGrad)" rx="62" ry="85"/>
+      <ellipse cx="110" cy="155" rx="62" ry="85" fill="none" stroke="url(#podStroke)" stroke-width="1.5"/>
+      <!-- Pod ridges -->
+      <path d="M70 110 Q75 155 70 200" stroke="rgba(212,168,67,0.3)" stroke-width="1.5" fill="none"/>
+      <path d="M82 90 Q87 155 82 218" stroke="rgba(212,168,67,0.25)" stroke-width="1.5" fill="none"/>
+      <path d="M110 82 Q115 155 110 228" stroke="rgba(212,168,67,0.3)" stroke-width="1.5" fill="none"/>
+      <path d="M138 90 Q133 155 138 218" stroke="rgba(212,168,67,0.25)" stroke-width="1.5" fill="none"/>
+      <path d="M150 110 Q145 155 150 200" stroke="rgba(212,168,67,0.2)" stroke-width="1.5" fill="none"/>
+      <!-- Stem -->
+      <path d="M110 82 C110 70 115 55 108 38 C104 25 112 15 118 22" stroke="#8b5e3c" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <!-- Leaf -->
+      <path d="M118 22 C130 10 148 18 142 32 C138 42 122 38 118 22Z" fill="url(#leafGrad)" opacity="0.9"/>
+      <!-- Leaf vein -->
+      <path d="M118 22 C130 25 140 28 142 32" stroke="rgba(34,197,94,0.4)" stroke-width="0.8" fill="none"/>
+      <!-- Shine -->
+      <ellipse cx="88" cy="130" rx="12" ry="22" fill="rgba(255,255,255,0.06)" transform="rotate(-15 88 130)"/>
+      <!-- Bean shapes inside -->
+      <ellipse cx="96" cy="155" rx="8" ry="11" fill="url(#beanGrad)" opacity="0.6"/>
+      <ellipse cx="110" cy="165" rx="8" ry="11" fill="url(#beanGrad)" opacity="0.6"/>
+      <ellipse cx="124" cy="155" rx="8" ry="11" fill="url(#beanGrad)" opacity="0.6"/>
+      <!-- Floating beans around pod -->
+      <ellipse cx="30" cy="80" rx="10" ry="14" fill="url(#beanGrad2)" opacity="0.8" transform="rotate(-20 30 80)"/>
+      <ellipse cx="185" cy="200" rx="9" ry="13" fill="url(#beanGrad2)" opacity="0.7" transform="rotate(15 185 200)"/>
+      <ellipse cx="20" cy="185" rx="7" ry="10" fill="url(#beanGrad2)" opacity="0.5" transform="rotate(-10 20 185)"/>
+      <ellipse cx="195" cy="100" rx="8" ry="11" fill="url(#beanGrad2)" opacity="0.6" transform="rotate(25 195 100)"/>
+      <!-- Stars / particles -->
+      <circle cx="50" cy="50" r="1.5" fill="#d4a843" opacity="0.6"/>
+      <circle cx="170" cy="60" r="1" fill="#d4a843" opacity="0.4"/>
+      <circle cx="40" cy="220" r="1.5" fill="#d4a843" opacity="0.5"/>
+      <circle cx="180" cy="250" r="1" fill="#d4a843" opacity="0.3"/>
+      <circle cx="200" cy="145" r="2" fill="#8b5e3c" opacity="0.5"/>
+
+      <defs>
+        <radialGradient id="heroGlow" cx="50%" cy="50%">
+          <stop offset="0%" stop-color="#d4a843" stop-opacity="0.12"/>
+          <stop offset="100%" stop-color="#d4a843" stop-opacity="0"/>
+        </radialGradient>
+        <linearGradient id="podGrad" x1="60" y1="80" x2="160" y2="240" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#5c3320"/>
+          <stop offset="50%" stop-color="#3d1f0e"/>
+          <stop offset="100%" stop-color="#2a1408"/>
+        </linearGradient>
+        <linearGradient id="podStroke" x1="60" y1="80" x2="160" y2="240" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#d4a843"/>
+          <stop offset="100%" stop-color="#8b5e3c"/>
+        </linearGradient>
+        <linearGradient id="leafGrad" x1="118" y1="12" x2="142" y2="35" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#22c55e"/>
+          <stop offset="100%" stop-color="#166534"/>
+        </linearGradient>
+        <linearGradient id="beanGrad" x1="0" y1="0" x2="0" y2="1" gradientUnits="objectBoundingBox">
+          <stop offset="0%" stop-color="#8b5e3c"/>
+          <stop offset="100%" stop-color="#3d1f0e"/>
+        </linearGradient>
+        <linearGradient id="beanGrad2" x1="0" y1="0" x2="1" y2="1" gradientUnits="objectBoundingBox">
+          <stop offset="0%" stop-color="#c4863a"/>
+          <stop offset="100%" stop-color="#5c3320"/>
+        </linearGradient>
+      </defs>
+    </svg>
+  </div>
+</div>
+
+<!-- ═══ MAIN CONTENT ═══ -->
+<div class="main-wrap">
+
+  <!-- ─── ROW 1: 3 Key Stat Cards ─── -->
+  <div>
+    <div class="section-label">Market Snapshot · March 2026</div>
+    <div class="row-3">
+
+      <div class="stat-card">
+        <div class="icon-wrap" style="background:rgba(212,168,67,0.12);">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+            <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="#d4a843"/>
+          </svg>
+        </div>
+        <div class="big-val" style="color:#d4a843;">$3,291</div>
+        <div class="big-label">Cocoa Futures<br><span style="color:var(--text-muted);font-size:11px;">USD per metric tonne · Mar 19, 2026</span></div>
+        <div class="tag tag-red">▼ 59.1% Year-over-Year</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="icon-wrap" style="background:rgba(34,197,94,0.1);">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+            <path d="M23 6L13.5 15.5L8.5 10.5L1 18" stroke="#22c55e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M17 6H23V12" stroke="#22c55e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="big-val" style="color:#22c55e;">4.7%</div>
+        <div class="big-label">Projected CAGR<br><span style="color:var(--text-muted);font-size:11px;">Global Cocoa Market 2024–2031</span></div>
+        <div class="tag tag-green">▲ $12.5B → $18.02B by 2030</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="icon-wrap" style="background:rgba(239,68,68,0.1);">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+            <path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-1.5 7M17 13l1.5 7M9 20h6" stroke="#ef4444" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="big-val" style="color:#ef4444;">18%</div>
+        <div class="big-label">Chocolate Price Rise<br><span style="color:var(--text-muted);font-size:11px;">European Union · Full Year 2025</span></div>
+        <div class="tag tag-red">Highest food inflation item in EU</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ─── ROW 2: Line Chart (Price History) + Donut (Regional Demand) ─── -->
+  <div>
+    <div class="section-label">Price History & Regional Demand</div>
+    <div class="row-2-3">
+
+      <!-- Donut: Regional Demand -->
+      <div class="card">
+        <div class="card-title">Regional Demand Split</div>
+        <div class="card-sub">Global cocoa consumption share by region, 2025–2026</div>
+        <div class="donut-wrap">
+          <svg class="donut-svg" width="150" height="150" viewBox="0 0 150 150">
+            <!-- North America: ~30% -->
+            <circle cx="75" cy="75" r="52" fill="none" stroke="#d4a843" stroke-width="22"
+              stroke-dasharray="98 228" stroke-dashoffset="0" transform="rotate(-90 75 75)"/>
+            <!-- Asia-Pacific: 27% -->
+            <circle cx="75" cy="75" r="52" fill="none" stroke="#3b82f6" stroke-width="22"
+              stroke-dasharray="88 228" stroke-dashoffset="-98" transform="rotate(-90 75 75)"/>
+            <!-- Europe: 20% -->
+            <circle cx="75" cy="75" r="52" fill="none" stroke="#a855f7" stroke-width="22"
+              stroke-dasharray="65 228" stroke-dashoffset="-186" transform="rotate(-90 75 75)"/>
+            <!-- Middle East & Africa: 8% -->
+            <circle cx="75" cy="75" r="52" fill="none" stroke="#22c55e" stroke-width="22"
+              stroke-dasharray="26 228" stroke-dashoffset="-251" transform="rotate(-90 75 75)"/>
+            <!-- Others: 15% -->
+            <circle cx="75" cy="75" r="52" fill="none" stroke="#5a5470" stroke-width="22"
+              stroke-dasharray="49 228" stroke-dashoffset="-277" transform="rotate(-90 75 75)"/>
+            <!-- Center -->
+            <circle cx="75" cy="75" r="40" fill="var(--bg-card)"/>
+            <text x="75" y="70" text-anchor="middle" fill="#f0ece3" font-size="18" font-weight="800" font-family="Space Grotesk, sans-serif">100%</text>
+            <text x="75" y="85" text-anchor="middle" fill="#5a5470" font-size="8" font-family="Inter, sans-serif">GLOBAL</text>
+          </svg>
+          <div class="donut-legend">
+            <div class="legend-item">
+              <div class="legend-dot" style="background:#d4a843;"></div>
+              <span class="legend-name">North America</span>
+              <span class="legend-val">~30%</span>
+            </div>
+            <div class="legend-item">
+              <div class="legend-dot" style="background:#3b82f6;"></div>
+              <span class="legend-name">Asia-Pacific</span>
+              <span class="legend-val">27%</span>
+            </div>
+            <div class="legend-item">
+              <div class="legend-dot" style="background:#a855f7;"></div>
+              <span class="legend-name">Europe</span>
+              <span class="legend-val">20%</span>
+            </div>
+            <div class="legend-item">
+              <div class="legend-dot" style="background:#22c55e;"></div>
+              <span class="legend-name">Middle East & Africa</span>
+              <span class="legend-val">8%</span>
+            </div>
+            <div class="legend-item">
+              <div class="legend-dot" style="background:#5a5470;"></div>
+              <span class="legend-name">Rest of World</span>
+              <span class="legend-val">~15%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Line Chart: Cocoa Price Journey -->
+      <div class="card">
+        <div class="card-title">Cocoa Futures Price Journey</div>
+        <div class="card-sub">USD per metric tonne — historical milestones & recent volatility (2020–2026)</div>
+
+        <svg width="100%" height="200" viewBox="0 0 560 200" preserveAspectRatio="none">
+          <defs>
+            <linearGradient id="lineGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#d4a843" stop-opacity="0.35"/>
+              <stop offset="100%" stop-color="#d4a843" stop-opacity="0"/>
+            </linearGradient>
+            <linearGradient id="lineStroke" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#8b5e3c"/>
+              <stop offset="60%" stop-color="#d4a843"/>
+              <stop offset="100%" stop-color="#ef4444"/>
+            </linearGradient>
+            <filter id="glow">
+              <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+              <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+          </defs>
+
+          <!-- Grid lines -->
+          <line x1="0" y1="30" x2="560" y2="30" stroke="var(--border)" stroke-width="0.5"/>
+          <line x1="0" y1="70" x2="560" y2="70" stroke="var(--border)" stroke-width="0.5"/>
+          <line x1="0" y1="110" x2="560" y2="110" stroke="var(--border)" stroke-width="0.5"/>
+          <line x1="0" y1="150" x2="560" y2="150" stroke="var(--border)" stroke-width="0.5"/>
+          <line x1="0" y1="185" x2="560" y2="185" stroke="var(--border)" stroke-width="0.5"/>
+
+          <!-- Y-axis labels -->
+          <text x="4" y="28" fill="#5a5470" font-size="8" font-family="Inter,sans-serif">12,000</text>
+          <text x="4" y="68" fill="#5a5470" font-size="8" font-family="Inter,sans-serif">9,000</text>
+          <text x="4" y="108" fill="#5a5470" font-size="8" font-family="Inter,sans-serif">6,000</text>
+          <text x="4" y="148" fill="#5a5470" font-size="8" font-family="Inter,sans-serif">3,000</text>
+          <text x="4" y="184" fill="#5a5470" font-size="8" font-family="Inter,sans-serif">1,000</text>
+
+          <!-- Data path: approximate points
+               2020 Jan ~2400 → Apr ~2200 → 2021 Jan ~2600 → 2022 Jan ~2700 → 
+               2023 Jan ~2800 → Jul ~3400 → 2024 Jan ~4200 → Apr ~10000 → Dec ~12906 →
+               2025 Mar ~8000 → Jun ~5000 → 2026 Jan ~4500 → Mar ~3290
+               Scale: x=0→560 maps 2020Jan→2026Mar; y: 0=13000, 185=800
+               y = 185 - (val-800)/(12200)*185
+          -->
+          <!-- Area fill -->
+          <path d="
+            M 0,163
+            L 30,166
+            L 70,165
+            L 110,162
+            L 160,160
+            L 200,158
+            L 230,155
+            L 260,148
+            L 300,112
+            L 330,55
+            L 360,22
+            L 390,18
+            L 420,58
+            L 450,95
+            L 490,110
+            L 530,145
+            L 560,150
+            L 560,185 L 0,185 Z
+          " fill="url(#lineGrad)"/>
+
+          <!-- Line -->
+          <path d="
+            M 0,163
+            L 30,166
+            L 70,165
+            L 110,162
+            L 160,160
+            L 200,158
+            L 230,155
+            L 260,148
+            L 300,112
+            L 330,55
+            L 360,22
+            L 390,18
+            L 420,58
+            L 450,95
+            L 490,110
+            L 530,145
+            L 560,150
+          " fill="none" stroke="url(#lineStroke)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" filter="url(#glow)"/>
+
+          <!-- ATH dot -->
+          <circle cx="390" cy="18" r="5" fill="#ef4444" filter="url(#glow)"/>
+          <text x="395" y="14" fill="#ef4444" font-size="8" font-family="Space Grotesk,sans-serif" font-weight="700">ATH $12,906</text>
+          <text x="395" y="24" fill="#5a5470" font-size="7" font-family="Inter,sans-serif">Dec 2024</text>
+
+          <!-- Current dot -->
+          <circle cx="560" cy="150" r="5" fill="#d4a843" filter="url(#glow)"/>
+
+          <!-- X-axis labels -->
+          <text x="0" y="198" fill="#5a5470" font-size="8" font-family="Inter,sans-serif">2020</text>
+          <text x="100" y="198" fill="#5a5470" font-size="8" font-family="Inter,sans-serif">2021</text>
+          <text x="210" y="198" fill="#5a5470" font-size="8" font-family="Inter,sans-serif">2022</text>
+          <text x="310" y="198" fill="#5a5470" font-size="8" font-family="Inter,sans-serif">2023</text>
+          <text x="390" y="198" fill="#5a5470" font-size="8" font-family="Inter,sans-serif">2024</text>
+          <text x="490" y="198" fill="#5a5470" font-size="8" font-family="Inter,sans-serif">2025</text>
+          <text x="535" y="198" fill="#d4a843" font-size="8" font-family="Inter,sans-serif" font-weight="700">'26</text>
+        </svg>
+
+        <!-- Quick facts row -->
+        <div style="display:flex;gap:20px;margin-top:12px;flex-wrap:wrap;">
+          <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text-muted);">
+            <span style="width:8px;height:8px;background:#ef4444;border-radius:50%;display:inline-block;"></span>
+            All-time high: <strong style="color:#f0ece3;">$12,906/MT</strong> (Dec 2024)
+          </div>
+          <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text-muted);">
+            <span style="width:8px;height:8px;background:#d4a843;border-radius:50%;display:inline-block;"></span>
+            Current: <strong style="color:#f0ece3;">$3,291/MT</strong> (Mar 2026)
+          </div>
+          <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text-muted);">
+            <span style="width:8px;height:8px;background:#22c55e;border-radius:50%;display:inline-block;"></span>
+            1-Month change: <strong style="color:#22c55e;">+3.55%</strong>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ─── ROW 3: Production / Supply + EU Chocolate Inflation ─── -->
+  <div>
+    <div class="section-label">Production, Supply & Inflation Impact</div>
+    <div class="row-2">
+
+      <!-- Top Cocoa Producers — HBAR -->
+      <div class="card">
+        <div class="card-title">Top Cocoa Producing Nations</div>
+        <div class="card-sub">Estimated share of global cocoa output · 2025 harvest season</div>
+        <div class="hbar-row">
+          <div class="hbar-item">
+            <div class="hbar-header">
+              <span class="hbar-name">🇨🇮 Ivory Coast</span>
+              <span class="hbar-val">~42%</span>
+            </div>
+            <div class="hbar-track"><div class="hbar-fill" style="width:42%;background:linear-gradient(90deg,#d4a843,#f59e0b);"></div></div>
+          </div>
+          <div class="hbar-item">
+            <div class="hbar-header">
+              <span class="hbar-name">🇬🇭 Ghana</span>
+              <span class="hbar-val">~20%</span>
+            </div>
+            <div class="hbar-track"><div class="hbar-fill" style="width:20%;background:linear-gradient(90deg,#8b5e3c,#c4863a);"></div></div>
+          </div>
+          <div class="hbar-item">
+            <div class="hbar-header">
+              <span class="hbar-name">🇮🇩 Indonesia</span>
+              <span class="hbar-val">~12%</span>
+            </div>
+            <div class="hbar-track"><div class="hbar-fill" style="width:12%;background:linear-gradient(90deg,#3b82f6,#6366f1);"></div></div>
+          </div>
+          <div class="hbar-item">
+            <div class="hbar-header">
+              <span class="hbar-name">🇳🇬 Nigeria</span>
+              <span class="hbar-val">~6%</span>
+            </div>
+            <div class="hbar-track"><div class="hbar-fill" style="width:6%;background:linear-gradient(90deg,#22c55e,#16a34a);"></div></div>
+          </div>
+          <div class="hbar-item">
+            <div class="hbar-header">
+              <span class="hbar-name">🇨🇲 Cameroon</span>
+              <span class="hbar-val">~5%</span>
+            </div>
+            <div class="hbar-track"><div class="hbar-fill" style="width:5%;background:linear-gradient(90deg,#a855f7,#7c3aed);"></div></div>
+          </div>
+          <div class="hbar-item">
+            <div class="hbar-header">
+              <span class="hbar-name">🇪🇨 Ecuador</span>
+              <span class="hbar-val">~4%</span>
+            </div>
+            <div class="hbar-track"><div class="hbar-fill" style="width:4%;background:linear-gradient(90deg,#ef4444,#dc2626);"></div></div>
+          </div>
+          <div class="hbar-item">
+            <div class="hbar-header">
+              <span class="hbar-name">🌍 Rest of World</span>
+              <span class="hbar-val">~11%</span>
+            </div>
+            <div class="hbar-track"><div class="hbar-fill" style="width:11%;background:#2a2a3a;"></div></div>
+          </div>
+        </div>
+        <div style="margin-top:16px;padding:12px;background:rgba(212,168,67,0.06);border:1px solid rgba(212,168,67,0.15);border-radius:10px;">
+          <div style="font-size:11px;color:var(--text-muted);line-height:1.6;">
+            <span style="color:var(--accent-gold);font-weight:700;">Ivory Coast + Ghana = 60%+</span> of global cocoa supply. Both nations cut farmgate prices in early 2026 after global prices fell sharply, triggering market concerns about farmer livelihoods.
+          </div>
+        </div>
+      </div>
+
+      <!-- EU Chocolate Price Inflation — VBAR -->
+      <div class="card">
+        <div class="card-title">EU Chocolate Inflation by Country</div>
+        <div class="card-sub">% price increase in chocolate products across select EU nations · 2025</div>
+        <div class="vbar-chart">
+          <!-- Hungary ~35% -->
+          <div class="vbar-group">
+            <div class="vbar-val">~35%</div>
+            <div class="vbar" style="height:calc(150px * 0.88);background:linear-gradient(180deg,#ef4444,#dc2626);">
+              <span class="vbar-lbl">HU</span>
+            </div>
+          </div>
+          <!-- Romania ~32% -->
+          <div class="vbar-group">
+            <div class="vbar-val">~32%</div>
+            <div class="vbar" style="height:calc(150px * 0.80);background:linear-gradient(180deg,#f97316,#ea580c);">
+              <span class="vbar-lbl">RO</span>
+            </div>
+          </div>
+          <!-- Bulgaria ~30% -->
+          <div class="vbar-group">
+            <div class="vbar-val">~30%</div>
+            <div class="vbar" style="height:calc(150px * 0.75);background:linear-gradient(180deg,#f59e0b,#d97706);">
+              <span class="vbar-lbl">BG</span>
+            </div>
+          </div>
+          <!-- Poland ~28% -->
+          <div class="vbar-group">
+            <div class="vbar-val">~28%</div>
+            <div class="vbar" style="height:calc(150px * 0.70);background:linear-gradient(180deg,#eab308,#ca8a04);">
+              <span class="vbar-lbl">PL</span>
+            </div>
+          </div>
+          <!-- EU Avg 18% -->
+          <div class="vbar-group">
+            <div class="vbar-val" style="color:#d4a843;font-weight:800;">18%</div>
+            <div class="vbar" style="height:calc(150px * 0.45);background:linear-gradient(180deg,#d4a843,#92400e);border:1px solid #d4a843;">
+              <span class="vbar-lbl" style="color:var(--accent-gold);font-weight:700;">EU avg</span>
+            </div>
+          </div>
+          <!-- France ~14% -->
+          <div class="vbar-group">
+            <div class="vbar-val">~14%</div>
+            <div class="vbar" style="height:calc(150px * 0.35);background:linear-gradient(180deg,#3b82f6,#2563eb);">
+              <span class="vbar-lbl">FR</span>
+            </div>
+          </div>
+          <!-- Germany ~12% -->
+          <div class="vbar-group">
+            <div class="vbar-val">~12%</div>
+            <div class="vbar" style="height:calc(150px * 0.30);background:linear-gradient(180deg,#6366f1,#4f46e5);">
+              <span class="vbar-lbl">DE</span>
+            </div>
+          </div>
+          <!-- Netherlands ~10% -->
+          <div class="vbar-group">
+            <div class="vbar-val">~10%</div>
+            <div class="vbar" style="height:calc(150px * 0.25);background:linear-gradient(180deg,#a855f7,#7c3aed);">
+              <span class="vbar-lbl">NL</span>
+            </div>
+          </div>
+          <!-- Switzerland ~8% -->
+          <div class="vbar-group">
+            <div class="vbar-val">~8%</div>
+            <div class="vbar" style="height:calc(150px * 0.20);background:linear-gradient(180deg,#22c55e,#16a34a);">
+              <span class="vbar-lbl">CH</span>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top:18px;display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+          <div style="background:rgba(239,68,68,0.07);border:1px solid rgba(239,68,68,0.2);border-radius:10px;padding:12px;">
+            <div style="font-size:10px;color:#ef4444;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">EU 2025 Overall CPI</div>
+            <div style="font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:800;color:#f0ece3;">2.5%</div>
+            <div style="font-size:10px;color:var(--text-muted);">vs 18% chocolate spike</div>
+          </div>
+          <div style="background:rgba(212,168,67,0.07);border:1px solid rgba(212,168,67,0.2);border-radius:10px;padding:12px;">
+            <div style="font-size:10px;color:var(--accent-gold);font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">Root Cause</div>
+            <div style="font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:700;color:#f0ece3;">West Africa Drought</div>
+            <div style="font-size:10px;color:var(--text-muted);">2023–2024 harvest failure</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ─── ROW 4: Market Growth Forecast + Key Events ─── -->
+  <div>
+    <div class="section-label">Market Forecast & Milestones</div>
+    <div class="row-3-2">
+
+      <!-- Market Value Forecast + Segmentation -->
+      <div class="card">
+        <div class="card-title">Global Cocoa Market Value Forecast</div>
+        <div class="card-sub">USD Billion · 2022 to 2033 projection (CAGR: 4.7%)</div>
+
+        <!-- Price Timeline bars -->
+        <div class="price-timeline" style="margin-bottom:20px;">
+          <div class="price-row">
+            <span class="price-year">2022</span>
+            <div class="price-bar-track"><div class="price-bar-fill" style="width:55%;background:linear-gradient(90deg,#8b5e3c,#c4863a);"></div></div>
+            <span class="price-val">$12.5B</span>
+          </div>
+          <div class="price-row">
+            <span class="price-year">2024</span>
+            <div class="price-bar-track"><div class="price-bar-fill" style="width:63%;background:linear-gradient(90deg,#c4863a,#d4a843);"></div></div>
+            <span class="price-val">~$13.6B</span>
+          </div>
+          <div class="price-row">
+            <span class="price-year">2026 est.</span>
+            <div class="price-bar-track"><div class="price-bar-fill" style="width:70%;background:linear-gradient(90deg,#d4a843,#f59e0b);"></div></div>
+            <span class="price-val">~$14.9B</span>
+          </div>
+          <div class="price-row">
+            <span class="price-year">2028 est.</span>
+            <div class="price-bar-track"><div class="price-bar-fill" style="width:78%;background:linear-gradient(90deg,#f59e0b,#fbbf24);"></div></div>
+            <span class="price-val">~$16.1B</span>
+          </div>
+          <div class="price-row">
+            <span class="price-year">2030 est.</span>
+            <div class="price-bar-track"><div class="price-bar-fill" style="width:82%;background:linear-gradient(90deg,#fbbf24,#22c55e);"></div></div>
+            <span class="price-val">$18.02B</span>
+          </div>
+          <div class="price-row">
+            <span class="price-year">2033 est.</span>
+            <div class="price-bar-track"><div class="price-bar-fill" style="width:92%;background:linear-gradient(90deg,#22c55e,#16a34a);"></div></div>
+            <span class="price-val">~$20B+</span>
+          </div>
+        </div>
+
+        <div class="divider" style="margin:16px 0;"></div>
+
+        <!-- Form Segmentation -->
+        <div class="card-title" style="font-size:14px;margin-bottom:6px;">Product Form Breakdown</div>
+        <div class="card-sub" style="margin-bottom:14px;">Share of cocoa market by processed form</div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;">
+          <div style="text-align:center;padding:12px 8px;background:var(--bg-card2);border:1px solid var(--border);border-radius:10px;">
+            <div style="font-size:10px;color:var(--text-muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:1px;">Cocoa Butter</div>
+            <div style="font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:800;color:#d4a843;">33%</div>
+            <div style="width:100%;height:3px;background:var(--border);border-radius:2px;margin-top:8px;overflow:hidden;"><div style="width:33%;height:100%;background:#d4a843;border-radius:2px;"></div></div>
+          </div>
+          <div style="text-align:center;padding:12px 8px;background:var(--bg-card2);border:1px solid var(--border);border-radius:10px;">
+            <div style="font-size:10px;color:var(--text-muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:1px;">Cocoa Powder</div>
+            <div style="font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:800;color:#3b82f6;">28%</div>
+            <div style="width:100%;height:3px;background:var(--border);border-radius:2px;margin-top:8px;overflow:hidden;"><div style="width:28%;height:100%;background:#3b82f6;border-radius:2px;"></div></div>
+          </div>
+          <div style="text-align:center;padding:12px 8px;background:var(--bg-card2);border:1px solid var(--border);border-radius:10px;">
+            <div style="font-size:10px;color:var(--text-muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:1px;">Cocoa Liquor</div>
+            <div style="font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:800;color:#a855f7;">22%</div>
+            <div style="width:100%;height:3px;background:var(--border);border-radius:2px;margin-top:8px;overflow:hidden;"><div style="width:22%;height:100%;background:#a855f7;border-radius:2px;"></div></div>
+          </div>
+          <div style="text-align:center;padding:12px 8px;background:var(--bg-card2);border:1px solid var(--border);border-radius:10px;">
+            <div style="font-size:10px;color:var(--text-muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:1px;">Cocoa Beans</div>
+            <div style="font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:800;color:#22c55e;">11%</div>
+            <div style="width:100%;height:3px;background:var(--border);border-radius:2px;margin-top:8px;overflow:hidden;"><div style="width:11%;height:100%;background:#22c55e;border-radius:2px;"></div></div>
+          </div>
+          <div style="text-align:center;padding:12px 8px;background:var(--bg-card2);border:1px solid var(--border);border-radius:10px;">
+            <div style="font-size:10px;color:var(--text-muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:1px;">Other Forms</div>
+            <div style="font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:800;color:#5a5470;">6%</div>
+            <div style="width:100%;height:3px;background:var(--border);border-radius:2px;margin-top:8px;overflow:hidden;"><div style="width:6%;height:100%;background:#5a5470;border-radius:2px;"></div></div>
+          </div>
+          <div style="text-align:center;padding:12px 8px;background:rgba(212,168,67,0.06);border:1px solid rgba(212,168,67,0.2);border-radius:10px;">
+            <div style="font-size:10px;color:var(--accent-gold);margin-bottom:6px;text-transform:uppercase;letter-spacing:1px;font-weight:700;">CAGR</div>
+            <div style="font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:800;color:var(--accent-gold);">4.7%</div>
+            <div style="font-size:9px;color:var(--text-muted);margin-top:4px;">2024–2031</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Key Events Timeline -->
+      <div class="card">
+        <div class="card-title">Key Market Events</div>
+        <div class="card-sub">Industry milestones shaping the cocoa landscape 2025–2026</div>
+        <div class="event-list">
+
+          <div class="event-item">
+            <div class="event-dot-col">
+              <div class="event-dot" style="background:#ef4444;"></div>
+              <div class="event-line"></div>
+            </div>
+            <span class="event-date">Dec 2024</span>
+            <div class="event-text"><strong>All-Time High:</strong> Cocoa futures surged to $12,906/MT, driven by severe West Africa drought and historic supply deficit.</div>
+          </div>
+
+          <div class="event-item">
+            <div class="event-dot-col">
+              <div class="event-dot" style="background:#f59e0b;"></div>
+              <div class="event-line"></div>
+            </div>
+            <span class="event-date">Oct 2025</span>
+            <div class="event-text"><strong>Health Segment Growth:</strong> High-flavanol and low-sugar cocoa products drove demand from nutraceutical and health-conscious consumers.</div>
+          </div>
+
+          <div class="event-item">
+            <div class="event-dot-col">
+              <div class="event-dot" style="background:#a855f7;"></div>
+              <div class="event-line"></div>
+            </div>
+            <span class="event-date">Nov 2025</span>
+            <div class="event-text"><strong>ESG Compliance Push:</strong> Major firms strengthened Fairtrade & Rainforest Alliance certifications to meet ESG commitments.</div>
+          </div>
+
+          <div class="event-item">
+            <div class="event-dot-col">
+              <div class="event-dot" style="background:#3b82f6;"></div>
+              <div class="event-line"></div>
+            </div>
+            <span class="event-date">Jan 2026</span>
+            <div class="event-text"><strong>Barry Callebaut:</strong> Evaluating strategic spin-off or divestment of cocoa division to reduce price volatility exposure.</div>
+          </div>
+
+          <div class="event-item">
+            <div class="event-dot-col">
+              <div class="event-dot" style="background:#22c55e;"></div>
+              <div class="event-line"></div>
+            </div>
+            <span class="event-date">Feb 2026</span>
+            <div class="event-text"><strong>Cargill Expansion:</strong> Expanded cocoa processing capacity for specialty chocolate and confectionery markets.</div>
+          </div>
+
+          <div class="event-item">
+            <div class="event-dot-col">
+              <div class="event-dot" style="background:#d4a843;"></div>
+            </div>
+            <span class="event-date">Mar 2026</span>
+            <div class="event-text"><strong>ICE Inventories:</strong> Cocoa inventories rose to 7.25-month high of 2,273,550 bags; prices fall 59% from year-ago levels.</div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ─── ROW 5: Key Players + Supply Chain + Inventory ─── -->
+  <div>
+    <div class="section-label">Industry Players, M&A & Supply Chain</div>
+    <div class="row-3">
+
+      <!-- Key Players -->
+      <div class="card">
+        <div class="card-title">Key Market Players 2026</div>
+        <div class="card-sub">Leading companies across cocoa processing, trading & confectionery</div>
+        <div class="players-grid">
+          <div class="player-chip">
+            <div class="player-ico" style="background:rgba(212,168,67,0.12);">🍫</div>
+            Barry Callebaut
+          </div>
+          <div class="player-chip">
+            <div class="player-ico" style="background:rgba(59,130,246,0.12);">🏭</div>
+            Cargill Inc.
+          </div>
+          <div class="player-chip">
+            <div class="player-ico" style="background:rgba(34,197,94,0.12);">🌱</div>
+            Olam International
+          </div>
+          <div class="player-chip">
+            <div class="player-ico" style="background:rgba(168,85,247,0.12);">🇯🇵</div>
+            Fuji Oil Co. Ltd.
+          </div>
+          <div class="player-chip">
+            <div class="player-ico" style="background:rgba(239,68,68,0.12);">🌍</div>
+            ECOM Agro-industrial
+          </div>
+          <div class="player-chip">
+            <div class="player-ico" style="background:rgba(245,158,11,0.12);">🏗️</div>
+            Touton S.A.
+          </div>
+          <div class="player-chip">
+            <div class="player-ico" style="background:rgba(212,168,67,0.12);">🇬🇭</div>
+            Cocoa Processing Co.
+          </div>
+          <div class="player-chip">
+            <div class="player-ico" style="background:rgba(59,130,246,0.12);">🔬</div>
+            Niche Cocoa Ind. Ltd.
+          </div>
+        </div>
+      </div>
+
+      <!-- M&A Activity -->
+      <div class="card">
+        <div class="card-title">M&A Activity 2025–2026</div>
+        <div class="card-sub">Consolidation and strategic moves reshaping the industry</div>
+        <div style="display:flex;flex-direction:column;gap:12px;">
+
+          <div style="background:var(--bg-card2);border:1px solid var(--border);border-radius:10px;padding:14px;">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:6px;">
+              <span style="font-size:12px;font-weight:700;color:#f0ece3;">Hartree Partners → Touton SA</span>
+              <span class="tag tag-gold" style="font-size:10px;padding:2px 8px;white-space:nowrap;">~10% global trade</span>
+            </div>
+            <p style="font-size:11px;color:var(--text-muted);line-height:1.5;">Acquisition of French cocoa trader Touton finalizing; expands Hartree's soft commodity footprint significantly.</p>
+          </div>
+
+          <div style="background:var(--bg-card2);border:1px solid var(--border);border-radius:10px;padding:14px;">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:6px;">
+              <span style="font-size:12px;font-weight:700;color:#f0ece3;">Ferrero → WK Kellogg Co.</span>
+              <span class="tag tag-blue" style="font-size:10px;padding:2px 8px;white-space:nowrap;">$3.1B deal</span>
+            </div>
+            <p style="font-size:11px;color:var(--text-muted);line-height:1.5;">Includes cocoa-related cereal brands (Cocoa Krispies). Diversifies Ferrero into US snacks market.</p>
+          </div>
+
+          <div style="background:var(--bg-card2);border:1px solid var(--border);border-radius:10px;padding:14px;">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:6px;">
+              <span style="font-size:12px;font-weight:700;color:#f0ece3;">Barry Callebaut Restructure</span>
+              <span class="tag tag-purple" style="font-size:10px;padding:2px 8px;white-space:nowrap;">Under Review</span>
+            </div>
+            <p style="font-size:11px;color:var(--text-muted);line-height:1.5;">Evaluating spin-off or minority stake sale of cocoa division to reduce exposure to commodity price swings.</p>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Inventory & Supply Stats -->
+      <div class="card">
+        <div class="card-title">Supply & Inventory Snapshot</div>
+        <div class="card-sub">Current market supply conditions · March 2026</div>
+        <div class="info-grid">
+          <div class="info-tile">
+            <div class="it-label">ICE Inventories</div>
+            <div class="it-val" style="font-size:18px;">2.27M</div>
+            <div class="it-sub">Bags as of Mar 16, 2026 — 7.25-month high</div>
+          </div>
+          <div class="info-tile">
+            <div class="it-label">Ivory Coast Exports</div>
+            <div class="it-val" style="font-size:18px;">400K+</div>
+            <div class="it-sub">Tons export contracts within 10 days of resumption</div>
+          </div>
+          <div class="info-tile">
+            <div class="it-label">Supply Status</div>
+            <div class="it-val" style="font-size:15px;color:#22c55e;">Surplus</div>
+            <div class="it-sub">Rainfall boosted pod development; supply improving</div>
+          </div>
+          <div class="info-tile">
+            <div class="it-label">12-Month Forecast</div>
+            <div class="it-val" style="font-size:18px;">$2,759</div>
+            <div class="it-sub">Trading Economics consensus price forecast /MT</div>
+          </div>
+          <div class="info-tile">
+            <div class="it-label">Contract Exchange</div>
+            <div class="it-val" style="font-size:14px;">ICE/NYMEX</div>
+            <div class="it-sub">10 metric ton contracts; USD & GBP pricing</div>
+          </div>
+          <div class="info-tile">
+            <div class="it-label">Demand Trend</div>
+            <div class="it-val" style="font-size:15px;color:#f59e0b;">Cautious</div>
+            <div class="it-sub">Industry rebuilding stocks but demand softening post-spike</div>
+          </div>
+        </div>
+
+        <div style="margin-top:16px;padding:14px;background:rgba(34,197,94,0.06);border:1px solid rgba(34,197,94,0.15);border-radius:10px;">
+          <div style="font-size:10px;font-weight:700;color:#22c55e;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px;">Sustainability Push</div>
+          <div style="font-size:11px;color:var(--text-muted);line-height:1.6;">
+            Olam Cocoa, Barry Callebaut & Cargill all enhanced traceable supply chain programs in West Africa through 2025–2026. ESG certifications (Fairtrade, Rainforest Alliance) increasingly mandatory for market access in EU.
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-title">Sources & Citations</div>
+    <div class="footer-sources">
+      <div class="footer-source">
+        <strong style="color:var(--text-secondary);">[1] DataM Intelligence via OpenPR (March 2026):</strong> "Cocoa Market Size 2026 — Chocolate Production, Premium Chocolate, Fair-Trade Sourcing, Confectionery Growth & Market Investment Opportunities." Market valued at USD $12.5B (2022), forecast USD $18.02B (2030), CAGR 4.7% (2024–2031). Key players, M&A activity, regional segmentation, and industry developments cited.
+        <a href="https://www.openpr.com/news/4425553/cocoa-market-2026-2033-chocolate-production-premium" target="_blank">openpr.com/news/4425553</a>
+      </div>
+      <div class="footer-source">
+        <strong style="color:var(--text-secondary);">[2] Euronews Business (March 15, 2026):</strong> "Why is chocolate so expensive — and where have prices risen most?" — EU chocolate prices rose 18% in 2025, highest of any food category; EU overall CPI was 2.5%. Regional country-level inflation data (Hungary, Romania, etc.) cited. Drought in West Africa identified as root cause.
+        <a href="https://www.euronews.com/business/2026/03/15/why-is-chocolate-so-expensive-and-where-have-prices-risen-most" target="_blank">euronews.com/business/2026/03/15</a>
+      </div>
+      <div class="footer-source">
+        <strong style="color:var(--text-secondary);">[3] Trading Economics — Cocoa Commodity Page (March 19, 2026):</strong> Cocoa futures at $3,290.75/MT (+0.94% on day; +3.55% monthly; -59.10% YoY). All-time high of $12,906/MT (Dec 2024). ICE inventories at 7.25-month high of 2,273,550 bags as of March 16. 12-month price forecast: $2,758.60/MT. Ivory Coast & Ghana = 60%+ global output. Producer farmgate price cuts and supply outlook cited.
+        <a href="https://tradingeconomics.com/commodity/cocoa" target="_blank">tradingeconomics.com/commodity/cocoa</a>
+      </div>
+    </div>
+    <div class="footer-disclaimer">
+      This infographic is produced for informational and educational purposes only. Market forecasts, price projections, and percentage figures represent estimates from the cited sources and should not be construed as investment advice. All data as of March 2026. Design & compilation: HTML Infographic Generator.
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
