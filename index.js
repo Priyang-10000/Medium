@@ -39,20 +39,26 @@ async function saveConfigToGitHub(cfg) {
     if (!cfg.githubUser || !cfg.githubRepo || !cfg.githubToken) return;
     const url = `https://api.github.com/repos/${cfg.githubUser}/${cfg.githubRepo}/contents/_config.json`;
     const b64 = Buffer.from(JSON.stringify(cfg, null, 2)).toString('base64');
-    let sha;
-    try {
-      const existing = await fetch(url, { headers: { 'Authorization': 'token ' + cfg.githubToken, 'User-Agent': 'IF-Studio' } });
-      if (existing.ok) sha = (await existing.json()).sha;
-    } catch(e) {}
-    const body = { message: 'IF Studio config update', content: b64 };
-    if (sha) body.sha = sha;
-    const res = await fetch(url, {
-      method: 'PUT',
-      headers: { 'Authorization': 'token ' + cfg.githubToken, 'Content-Type': 'application/json', 'User-Agent': 'IF-Studio' },
-      body: JSON.stringify(body)
-    });
-    if (res.ok) console.log('Config saved to GitHub');
-    else console.warn('GitHub config save failed:', res.status);
+    const headers = { 'Authorization': 'token ' + cfg.githubToken, 'Content-Type': 'application/json', 'User-Agent': 'IF-Studio' };
+
+    for (let attempt = 0; attempt < 3; attempt++) {
+      let sha;
+      try {
+        const existing = await fetch(url, { headers: { 'Authorization': 'token ' + cfg.githubToken, 'User-Agent': 'IF-Studio', 'Cache-Control': 'no-cache' } });
+        if (existing.ok) sha = (await existing.json()).sha;
+      } catch(e) {}
+      const body = { message: 'IF Studio config update', content: b64 };
+      if (sha) body.sha = sha;
+      const res = await fetch(url, { method: 'PUT', headers, body: JSON.stringify(body) });
+      if (res.ok) { console.log('Config saved to GitHub'); return; }
+      if (res.status === 409 && attempt < 2) {
+        console.log('GitHub config save conflict, retrying...');
+        await new Promise(r => setTimeout(r, 1000));
+        continue;
+      }
+      console.warn('GitHub config save failed:', res.status);
+      return;
+    }
   } catch(e) { console.warn('GitHub config save failed:', e.message); }
 }
 
