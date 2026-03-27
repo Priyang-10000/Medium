@@ -321,7 +321,7 @@ async function runTopic(cfg, entry) {
 
   const r = await client.messages.create({
     model: 'claude-sonnet-4-6', max_tokens: 32000,
-    messages: [{ role: 'user', content: 'Generate a stunning HTML infographic about: "' + entry.topic + '".' + dataNote + webNote + ' Dark data theme, grid layout, hero stats, SVG charts (VBAR, HBAR, DONUT, LINE). No user images, use SVG illustrations. Max 4-5 chart sections. Always end with </body></html>. Output ONLY raw HTML.' }]
+    messages: [{ role: 'user', content: 'Generate a stunning HTML infographic about: "' + entry.topic + '".' + dataNote + webNote + ' Dark data theme, grid layout, hero stats, SVG charts (VBAR, HBAR, DONUT, LINE). No user images, use SVG illustrations. Max 4-5 chart sections. NEVER use <progress>, <meter>, <input>, <audio>, <video> or any native HTML form/media elements. All progress bars must be pure div-based with inline styles. Always end with </body></html>. Output ONLY raw HTML.' }]
   });
   let h = r.content.map(b => b.type === 'text' ? b.text : '').join('');
   h = h.replace(/^```html\s*/i, '').replace(/```\s*$/, '').trim();
