@@ -18,11 +18,28 @@ let activeCrons = [];
 
 // ── Config + send log persistence ────────────────────────────────────────────
 function loadConfig() {
+  // Try local file first
   try { if (fs.existsSync(CONFIG_PATH)) return JSON.parse(fs.readFileSync(CONFIG_PATH, 'utf8')); }
-  catch(e) { console.warn('Config load failed:', e.message); }
+  catch(e) { console.warn('Config file load failed:', e.message); }
+  // Fall back to env var (survives Railway restarts)
+  if (process.env.STORED_CONFIG) {
+    try {
+      const cfg = JSON.parse(Buffer.from(process.env.STORED_CONFIG, 'base64').toString('utf8'));
+      console.log('Config loaded from STORED_CONFIG env var');
+      // Rewrite local file so it's available for this session
+      try { fs.writeFileSync(CONFIG_PATH, JSON.stringify(cfg, null, 2)); } catch(e) {}
+      return cfg;
+    } catch(e) { console.warn('STORED_CONFIG parse failed:', e.message); }
+  }
   return null;
 }
-function saveConfig(cfg) { fs.writeFileSync(CONFIG_PATH, JSON.stringify(cfg, null, 2)); console.log('Config saved'); }
+function saveConfig(cfg) {
+  fs.writeFileSync(CONFIG_PATH, JSON.stringify(cfg, null, 2));
+  // Log the base64 so you can copy it into Railway env var
+  const b64 = Buffer.from(JSON.stringify(cfg)).toString('base64');
+  console.log('Config saved. Copy this into Railway STORED_CONFIG env var:');
+  console.log('STORED_CONFIG=' + b64);
+}
 
 function loadSentLog() {
   try { if (fs.existsSync(SENT_LOG_PATH)) return JSON.parse(fs.readFileSync(SENT_LOG_PATH, 'utf8')); }
