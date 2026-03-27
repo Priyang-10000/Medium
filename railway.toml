@@ -1,0 +1,2 @@
+[deploy]
+watchPatterns = ["index.js", "package.json", "package-lock.json"]
