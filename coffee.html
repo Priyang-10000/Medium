@@ -3,96 +3,90 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Coffee — The World's Favorite Brew</title>
+<title>Coffee: The World's Favorite Brew</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
   :root {
     --bg: #0a0a0f;
-    --bg2: #111118;
-    --bg3: #16161f;
-    --card: #1a1a26;
-    --card2: #1f1f2e;
-    --border: #2a2a3d;
-    --accent: #c8842a;
-    --accent2: #e8a44a;
-    --accent3: #f5c469;
-    --teal: #2dd4bf;
-    --purple: #a78bfa;
-    --pink: #f472b6;
-    --blue: #60a5fa;
-    --green: #4ade80;
-    --text: #e8e8f0;
-    --text2: #9090b0;
-    --text3: #6060a0;
+    --surface: #12121a;
+    --surface2: #1a1a26;
+    --surface3: #22223a;
+    --accent: #c8853a;
+    --accent2: #e8a84e;
+    --accent3: #f5c87a;
+    --text: #f0f0f5;
+    --text2: #9090a8;
+    --text3: #5a5a78;
+    --grid: rgba(255,255,255,0.03);
+    --brown1: #6b3a2a;
+    --brown2: #8b4a2f;
+    --brown3: #c8703a;
+    --green: #4caf7d;
+    --blue: #4a90d9;
+    --purple: #8b5cf6;
+    --red: #e85555;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
   body {
+    font-family: 'Inter', sans-serif;
     background: var(--bg);
     color: var(--text);
-    font-family: 'Inter', sans-serif;
     min-height: 100vh;
-    overflow-x: hidden;
-  }
-
-  .grid-bg {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
     background-image:
-      linear-gradient(rgba(200,132,42,0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(200,132,42,0.04) 1px, transparent 1px);
+      linear-gradient(rgba(200,133,58,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(200,133,58,0.03) 1px, transparent 1px);
     background-size: 40px 40px;
-    pointer-events: none; z-index: 0;
   }
 
   .container {
     max-width: 1400px;
     margin: 0 auto;
     padding: 40px 24px;
-    position: relative; z-index: 1;
   }
 
   /* HERO */
   .hero {
     text-align: center;
-    margin-bottom: 60px;
-    padding: 60px 20px 40px;
+    padding: 60px 20px 50px;
     position: relative;
   }
 
   .hero-badge {
-    display: inline-block;
-    background: linear-gradient(135deg, rgba(200,132,42,0.2), rgba(232,164,74,0.1));
-    border: 1px solid rgba(200,132,42,0.4);
-    color: var(--accent2);
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 3px;
-    text-transform: uppercase;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(200,133,58,0.12);
+    border: 1px solid rgba(200,133,58,0.3);
+    border-radius: 50px;
     padding: 6px 18px;
-    border-radius: 20px;
-    margin-bottom: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--accent2);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 24px;
   }
 
   .hero h1 {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: clamp(48px, 8vw, 96px);
-    font-weight: 700;
-    background: linear-gradient(135deg, #f5c469 0%, #c8842a 50%, #e8a44a 100%);
+    font-size: clamp(52px, 8vw, 96px);
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: -3px;
+    background: linear-gradient(135deg, #f5c87a 0%, #c8853a 50%, #8b4a2f 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    line-height: 1.0;
-    letter-spacing: -2px;
     margin-bottom: 16px;
   }
 
-  .hero-sub {
-    font-size: 16px;
+  .hero p {
+    font-size: 18px;
     color: var(--text2);
     max-width: 600px;
-    margin: 0 auto 40px;
+    margin: 0 auto 50px;
     line-height: 1.6;
     font-weight: 300;
   }
@@ -106,8 +100,8 @@
   }
 
   .stat-card {
-    background: var(--card);
-    border: 1px solid var(--border);
+    background: var(--surface);
+    border: 1px solid rgba(200,133,58,0.15);
     border-radius: 16px;
     padding: 28px 20px;
     text-align: center;
@@ -121,212 +115,158 @@
     position: absolute;
     top: 0; left: 0; right: 0;
     height: 2px;
-    background: linear-gradient(90deg, var(--accent), var(--accent3));
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
   }
 
   .stat-card:hover {
     transform: translateY(-3px);
-    border-color: rgba(200,132,42,0.4);
+    border-color: rgba(200,133,58,0.4);
   }
 
-  .stat-num {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: clamp(28px, 4vw, 44px);
-    font-weight: 700;
+  .stat-icon {
+    font-size: 28px;
+    margin-bottom: 12px;
+  }
+
+  .stat-value {
+    font-size: 36px;
+    font-weight: 900;
     color: var(--accent3);
     line-height: 1;
     margin-bottom: 6px;
-  }
-
-  .stat-unit {
-    font-size: 14px;
-    color: var(--accent2);
-    font-weight: 500;
-    margin-bottom: 6px;
+    letter-spacing: -1px;
   }
 
   .stat-label {
     font-size: 12px;
     color: var(--text2);
-    font-weight: 400;
-    line-height: 1.4;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
   }
 
-  /* SECTION TITLES */
-  .section-title {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 22px;
-    font-weight: 700;
-    color: var(--text);
-    margin-bottom: 6px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
+  .stat-sub {
+    font-size: 11px;
+    color: var(--text3);
+    margin-top: 6px;
   }
 
-  .section-title .dot {
-    width: 8px; height: 8px;
-    border-radius: 50%;
-    background: var(--accent);
-    flex-shrink: 0;
-  }
-
-  .section-desc {
-    font-size: 13px;
-    color: var(--text2);
-    margin-bottom: 24px;
-    padding-left: 18px;
-  }
-
-  /* GRID LAYOUTS */
-  .grid-2 {
+  /* GRID */
+  .grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 24px;
-    margin-bottom: 24px;
+    gap: 20px;
   }
 
-  .grid-3 {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 24px;
-    margin-bottom: 24px;
-  }
+  .grid-2 { grid-template-columns: 1fr 1fr; }
+  .grid-3 { grid-template-columns: 1fr 1fr 1fr; }
+  .grid-3-2 { grid-template-columns: 3fr 2fr; }
+  .grid-2-1 { grid-template-columns: 2fr 1fr; }
 
-  .grid-2-1 {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 24px;
-    margin-bottom: 24px;
-  }
-
-  .grid-1-2 {
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    gap: 24px;
-    margin-bottom: 24px;
-  }
-
-  .chart-card {
-    background: var(--card);
-    border: 1px solid var(--border);
+  .card {
+    background: var(--surface);
+    border: 1px solid rgba(255,255,255,0.06);
     border-radius: 20px;
     padding: 28px;
     position: relative;
     overflow: hidden;
   }
 
-  .chart-card.accent-border {
-    border-color: rgba(200,132,42,0.25);
+  .card::after {
+    content: '';
+    position: absolute;
+    top: -100px; right: -100px;
+    width: 200px; height: 200px;
+    background: radial-gradient(circle, rgba(200,133,58,0.06) 0%, transparent 70%);
+    pointer-events: none;
   }
 
-  .chart-card.teal-border {
-    border-color: rgba(45,212,191,0.25);
+  .card-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--accent2);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
   }
 
-  .chart-card.purple-border {
-    border-color: rgba(167,139,250,0.25);
+  .card-heading {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--text);
+    margin-bottom: 24px;
+    letter-spacing: -0.5px;
+  }
+
+  .section-divider {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 40px 0 24px;
+  }
+
+  .section-divider h2 {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--text);
+    letter-spacing: -0.5px;
+    white-space: nowrap;
+  }
+
+  .section-divider .line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(200,133,58,0.4), transparent);
+  }
+
+  .section-number {
+    width: 36px; height: 36px;
+    background: rgba(200,133,58,0.15);
+    border: 1px solid rgba(200,133,58,0.3);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 700; color: var(--accent2);
+  }
+
+  /* SVG COFFEE ILLUSTRATION */
+  .coffee-svg-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0;
   }
 
   /* VBAR CHART */
-  .vbar-chart {
-    display: flex;
-    align-items: flex-end;
-    gap: 10px;
-    height: 180px;
-    padding-top: 20px;
-    position: relative;
-  }
+  .vbar-chart { width: 100%; overflow: visible; }
 
-  .vbar-chart::before {
-    content: '';
-    position: absolute;
-    bottom: 28px; left: 0; right: 0;
-    height: 1px;
-    background: var(--border);
-  }
-
-  .vbar-group {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 6px;
-  }
-
-  .vbar-val {
-    font-size: 10px;
-    color: var(--accent3);
-    font-weight: 600;
-    white-space: nowrap;
-  }
-
-  .vbar {
-    width: 100%;
-    border-radius: 6px 6px 0 0;
-    position: relative;
-    transition: opacity 0.2s;
-    min-height: 4px;
-  }
-
-  .vbar:hover { opacity: 0.85; }
-
-  .vbar-label {
-    font-size: 9px;
-    color: var(--text2);
-    text-align: center;
-    padding-bottom: 4px;
-    line-height: 1.3;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 100%;
-  }
+  .bar-group text { font-family: 'Inter', sans-serif; }
 
   /* HBAR CHART */
-  .hbar-item {
+  .hbar-container { display: flex; flex-direction: column; gap: 14px; }
+
+  .hbar-item {}
+  .hbar-label-row {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: 12px;
-    margin-bottom: 14px;
+    margin-bottom: 6px;
   }
-
-  .hbar-label {
-    font-size: 12px;
-    color: var(--text2);
-    width: 110px;
-    flex-shrink: 0;
-    text-align: right;
-  }
-
+  .hbar-label { font-size: 13px; color: var(--text); font-weight: 500; }
+  .hbar-value { font-size: 13px; color: var(--accent2); font-weight: 700; }
   .hbar-track {
-    flex: 1;
-    height: 22px;
-    background: var(--bg3);
+    height: 8px;
+    background: rgba(255,255,255,0.05);
     border-radius: 4px;
     overflow: hidden;
-    position: relative;
   }
-
   .hbar-fill {
     height: 100%;
     border-radius: 4px;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    padding-right: 8px;
-    position: relative;
-  }
-
-  .hbar-val {
-    font-size: 11px;
-    font-weight: 700;
-    color: rgba(0,0,0,0.8);
-    white-space: nowrap;
+    background: linear-gradient(90deg, var(--brown2), var(--accent2));
+    transition: width 0.3s;
   }
 
   /* DONUT */
-  .donut-wrapper {
+  .donut-wrap {
     display: flex;
     align-items: center;
     gap: 28px;
@@ -334,13 +274,15 @@
 
   .donut-legend {
     flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
   }
 
   .legend-item {
     display: flex;
     align-items: center;
     gap: 10px;
-    margin-bottom: 12px;
   }
 
   .legend-dot {
@@ -349,837 +291,871 @@
     flex-shrink: 0;
   }
 
-  .legend-text {
-    font-size: 12px;
-    color: var(--text2);
-    flex: 1;
-  }
-
-  .legend-pct {
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--text);
-  }
+  .legend-label { font-size: 13px; color: var(--text2); flex: 1; }
+  .legend-val { font-size: 13px; font-weight: 700; color: var(--text); }
 
   /* LINE CHART */
-  .line-chart-wrap {
-    position: relative;
-    height: 200px;
-  }
+  .line-chart-wrap { overflow: visible; width: 100%; }
 
-  /* COFFEE ILLUSTRATION */
-  .coffee-cup-wrap {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 10px 0;
-  }
-
-  /* PROCESS STEPS */
-  .process-steps {
-    display: flex;
-    gap: 0;
-    position: relative;
-  }
-
-  .process-steps::before {
-    content: '';
-    position: absolute;
-    top: 32px; left: 32px; right: 32px;
-    height: 2px;
-    background: linear-gradient(90deg, var(--accent), var(--accent3), var(--teal));
-  }
-
-  .process-step {
-    flex: 1;
-    text-align: center;
-    padding-top: 0;
-  }
-
-  .step-icon {
-    width: 64px; height: 64px;
-    border-radius: 50%;
-    background: var(--card2);
-    border: 2px solid var(--border);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 10px;
-    position: relative;
-    z-index: 1;
-  }
-
-  .step-num {
-    font-size: 20px;
-    font-weight: 800;
-    color: var(--accent);
-    font-family: 'Space Grotesk', sans-serif;
-  }
-
-  .step-title {
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--text);
-    margin-bottom: 4px;
-  }
-
-  .step-sub {
-    font-size: 10px;
-    color: var(--text3);
-    line-height: 1.4;
-  }
-
-  /* TEMP GAUGE */
-  .gauge-item {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 16px;
-  }
-
-  .gauge-label {
-    font-size: 12px;
-    color: var(--text2);
-    width: 90px;
-    flex-shrink: 0;
-  }
-
-  .gauge-bar {
-    flex: 1;
-    height: 14px;
-    background: var(--bg3);
-    border-radius: 8px;
-    overflow: hidden;
-  }
-
-  .gauge-fill {
-    height: 100%;
-    border-radius: 8px;
-  }
-
-  .gauge-val {
-    font-size: 12px;
-    font-weight: 700;
-    color: var(--text);
-    width: 50px;
-    text-align: right;
-    flex-shrink: 0;
-  }
-
-  /* INFO PILLS */
-  .info-grid {
+  /* SPECIALTY CARD */
+  .specialty-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 12px;
   }
 
-  .info-pill {
-    background: var(--bg3);
-    border: 1px solid var(--border);
+  .spec-card {
+    background: var(--surface2);
+    border: 1px solid rgba(255,255,255,0.05);
     border-radius: 12px;
-    padding: 14px 16px;
+    padding: 16px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .spec-card::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    border-radius: 3px 0 0 3px;
+  }
+
+  .spec-title { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+  .spec-sub { font-size: 12px; color: var(--text2); line-height: 1.4; }
+  .spec-pct { font-size: 22px; font-weight: 900; color: var(--accent3); }
+
+  /* CAFFEINE BARS */
+  .caffeine-item {
     display: flex;
     align-items: center;
     gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
   }
 
-  .pill-icon {
-    width: 36px; height: 36px;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    font-size: 18px;
+  .caf-drink { font-size: 13px; color: var(--text); width: 120px; flex-shrink: 0; }
+  .caf-bar-wrap { flex: 1; }
+  .caf-track {
+    height: 10px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 5px;
+    overflow: hidden;
   }
-
-  .pill-content {}
-
-  .pill-num {
-    font-size: 18px;
-    font-weight: 700;
-    font-family: 'Space Grotesk', sans-serif;
-    color: var(--text);
-    line-height: 1;
-    margin-bottom: 2px;
+  .caf-fill {
+    height: 100%;
+    border-radius: 5px;
   }
-
-  .pill-desc {
-    font-size: 10px;
-    color: var(--text2);
-    line-height: 1.3;
-  }
+  .caf-val { font-size: 12px; font-weight: 700; color: var(--text2); width: 70px; text-align: right; flex-shrink: 0; }
 
   /* FOOTER */
   footer {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 24px 28px;
-    margin-top: 40px;
-    text-align: center;
-  }
-
-  footer .sources-title {
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--accent2);
-    margin-bottom: 12px;
-  }
-
-  footer p {
-    font-size: 11px;
+    margin-top: 60px;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    padding: 28px 0 16px;
     color: var(--text3);
+    font-size: 11px;
     line-height: 1.8;
   }
 
-  footer span {
-    color: var(--text2);
+  footer .sources { margin-bottom: 8px; }
+  footer strong { color: var(--text2); }
+
+  /* HIGHLIGHT */
+  .highlight-box {
+    background: rgba(200,133,58,0.08);
+    border: 1px solid rgba(200,133,58,0.2);
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin-top: 16px;
   }
+
+  .highlight-box p {
+    font-size: 13px;
+    color: var(--text2);
+    line-height: 1.6;
+  }
+
+  .highlight-box strong { color: var(--accent3); }
+
+  /* COUNTRY FLAG ROW */
+  .country-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-top: 8px;
+  }
+
+  .country-card {
+    background: var(--surface2);
+    border-radius: 10px;
+    padding: 12px;
+    text-align: center;
+    border: 1px solid rgba(255,255,255,0.05);
+  }
+
+  .country-flag { font-size: 24px; margin-bottom: 4px; }
+  .country-name { font-size: 11px; color: var(--text2); font-weight: 600; }
+  .country-kg { font-size: 16px; font-weight: 800; color: var(--accent3); }
 
   @media (max-width: 900px) {
     .hero-stats { grid-template-columns: repeat(2, 1fr); }
-    .grid-2, .grid-2-1, .grid-1-2 { grid-template-columns: 1fr; }
-    .grid-3 { grid-template-columns: 1fr 1fr; }
+    .grid-2, .grid-3, .grid-3-2, .grid-2-1 { grid-template-columns: 1fr; }
   }
 
-  @media (max-width: 600px) {
-    .hero-stats { grid-template-columns: repeat(2, 1fr); }
-    .grid-3 { grid-template-columns: 1fr; }
-    .process-steps { flex-direction: column; gap: 16px; }
-    .process-steps::before { display: none; }
+  @media (max-width: 500px) {
+    .hero-stats { grid-template-columns: 1fr 1fr; }
   }
 </style>
 </head>
 <body>
-<div class="grid-bg"></div>
-
 <div class="container">
 
   <!-- HERO -->
   <div class="hero">
-    <div class="hero-badge">☕ Global Data Report 2024</div>
-    <h1>COFFEE</h1>
-    <p class="hero-sub">From bean to cup — the world's second most traded commodity fuels 2.25 billion cups every single day across more than 70 producing countries.</p>
-
     <!-- SVG Coffee Cup Illustration -->
-    <div style="display:flex; justify-content:center; margin-bottom:20px;">
+    <div class="coffee-svg-wrap">
       <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
         <!-- Steam -->
-        <path d="M42 28 Q38 20 42 12 Q46 4 42 -2" stroke="#c8842a" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.6"/>
-        <path d="M60 28 Q56 20 60 12 Q64 4 60 -2" stroke="#e8a44a" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.6"/>
-        <path d="M78 28 Q74 20 78 12 Q82 4 78 -2" stroke="#c8842a" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.6"/>
+        <path d="M38 24 C38 18, 44 18, 44 12 C44 6, 38 6, 38 0" stroke="#c8853a" stroke-width="2.5" stroke-linecap="round" fill="none" opacity="0.6">
+          <animate attributeName="opacity" values="0.6;0.2;0.6" dur="2s" repeatCount="indefinite"/>
+        </path>
+        <path d="M54 22 C54 16, 60 16, 60 10 C60 4, 54 4, 54 0" stroke="#c8853a" stroke-width="2.5" stroke-linecap="round" fill="none" opacity="0.5">
+          <animate attributeName="opacity" values="0.5;0.1;0.5" dur="2.4s" repeatCount="indefinite"/>
+        </path>
+        <path d="M70 24 C70 18, 76 18, 76 12 C76 6, 70 6, 70 0" stroke="#c8853a" stroke-width="2.5" stroke-linecap="round" fill="none" opacity="0.6">
+          <animate attributeName="opacity" values="0.6;0.2;0.6" dur="1.8s" repeatCount="indefinite"/>
+        </path>
         <!-- Cup body -->
-        <path d="M25 40 L30 95 Q30 100 35 100 L85 100 Q90 100 90 95 L95 40 Z" fill="#1a1a26" stroke="#c8842a" stroke-width="1.5"/>
-        <!-- Coffee fill -->
-        <ellipse cx="60" cy="42" rx="35" ry="8" fill="#4a2810"/>
-        <!-- Highlight on coffee -->
-        <ellipse cx="50" cy="40" rx="10" ry="3" fill="#6a3820" opacity="0.5"/>
-        <!-- Cup rim -->
-        <ellipse cx="60" cy="40" rx="35" ry="8" fill="none" stroke="#c8842a" stroke-width="1.5"/>
-        <!-- Handle -->
-        <path d="M90 55 Q110 55 110 70 Q110 85 90 85" fill="none" stroke="#c8842a" stroke-width="3" stroke-linecap="round"/>
+        <path d="M18 40 L26 100 Q28 108 36 108 L84 108 Q92 108 94 100 L102 40 Z" fill="#1a1a26" stroke="#c8853a" stroke-width="1.5"/>
+        <!-- Coffee liquid -->
+        <ellipse cx="60" cy="52" rx="38" ry="10" fill="#6b3a2a"/>
+        <ellipse cx="60" cy="50" rx="36" ry="8" fill="#8b4a2f"/>
+        <!-- Foam circle -->
+        <circle cx="52" cy="49" r="4" fill="#c8853a" opacity="0.4"/>
+        <circle cx="64" cy="47" r="3" fill="#c8853a" opacity="0.3"/>
+        <circle cx="60" cy="54" r="2.5" fill="#c8853a" opacity="0.25"/>
         <!-- Saucer -->
-        <ellipse cx="60" cy="103" rx="45" ry="6" fill="#1a1a26" stroke="#c8842a" stroke-width="1"/>
-        <ellipse cx="60" cy="103" rx="30" ry="4" fill="#111118" stroke="#2a2a3d" stroke-width="1"/>
+        <ellipse cx="60" cy="112" rx="52" ry="8" fill="#12121a" stroke="#c8853a" stroke-width="1" opacity="0.7"/>
+        <!-- Handle -->
+        <path d="M102 56 Q120 56 120 72 Q120 88 102 88" stroke="#c8853a" stroke-width="3" stroke-linecap="round" fill="none"/>
       </svg>
     </div>
+
+    <div class="hero-badge">☕ Global Coffee Report 2024</div>
+    <h1>COFFEE</h1>
+    <p>From ancient Ethiopian highlands to 2.3 billion cups daily — exploring the world's most beloved beverage through data.</p>
+
+    <!-- HERO STATS -->
+    <div class="hero-stats">
+      <div class="stat-card">
+        <div class="stat-icon">☕</div>
+        <div class="stat-value">2.3B</div>
+        <div class="stat-label">Cups Per Day</div>
+        <div class="stat-sub">Consumed globally</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">🌍</div>
+        <div class="stat-value">175M</div>
+        <div class="stat-label">60kg Bags/Year</div>
+        <div class="stat-sub">Global production 2023</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">💰</div>
+        <div class="stat-value">$495B</div>
+        <div class="stat-label">Market Value</div>
+        <div class="stat-sub">Global industry 2023</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">🌿</div>
+        <div class="stat-value">125+</div>
+        <div class="stat-label">Species</div>
+        <div class="stat-sub">Coffea genus</div>
+      </div>
+    </div>
   </div>
 
-  <!-- HERO STATS -->
-  <div class="hero-stats">
-    <div class="stat-card">
-      <div class="stat-num">2.25B</div>
-      <div class="stat-unit">cups/day</div>
-      <div class="stat-label">Consumed globally every day</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-num">175M</div>
-      <div class="stat-unit">60kg bags/year</div>
-      <div class="stat-label">Global production (2023)</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-num">$495B</div>
-      <div class="stat-unit">market size</div>
-      <div class="stat-label">Global coffee industry 2023</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-num">125M</div>
-      <div class="stat-unit">livelihoods</div>
-      <div class="stat-label">People dependent on coffee</div>
-    </div>
+  <!-- SECTION 1: TOP PRODUCERS -->
+  <div class="section-divider">
+    <div class="section-number">01</div>
+    <h2>Top Coffee Producers</h2>
+    <div class="line"></div>
   </div>
 
-  <!-- SECTION 1: TOP PRODUCERS & CONSUMERS -->
-  <div class="grid-2" style="margin-bottom:24px;">
+  <div class="grid grid-3-2" style="margin-bottom:20px;">
+    <!-- VBAR CHART -->
+    <div class="card">
+      <div class="card-title">Production Volume</div>
+      <div class="card-heading">Annual Output by Country (Million 60kg Bags)</div>
+      <svg class="vbar-chart" viewBox="0 0 600 280" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="barGrad1" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#f5c87a"/>
+            <stop offset="100%" stop-color="#8b4a2f"/>
+          </linearGradient>
+          <linearGradient id="barGrad2" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#e8a84e"/>
+            <stop offset="100%" stop-color="#6b3a2a"/>
+          </linearGradient>
+          <linearGradient id="barGrad3" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#c8853a"/>
+            <stop offset="100%" stop-color="#4a2a1a"/>
+          </linearGradient>
+        </defs>
 
-    <!-- VBAR: Top Producers -->
-    <div class="chart-card accent-border">
-      <div class="section-title"><span class="dot"></span>Top Coffee Producers</div>
-      <div class="section-desc">Million 60kg bags produced annually (2022/23)</div>
-
-      <div class="vbar-chart">
         <!-- Grid lines -->
-        <svg style="position:absolute;top:0;left:0;width:100%;height:calc(100% - 28px);pointer-events:none;" preserveAspectRatio="none">
-          <line x1="0" y1="25%" x2="100%" y2="25%" stroke="#2a2a3d" stroke-width="1" stroke-dasharray="4,4"/>
-          <line x1="0" y1="50%" x2="100%" y2="50%" stroke="#2a2a3d" stroke-width="1" stroke-dasharray="4,4"/>
-          <line x1="0" y1="75%" x2="100%" y2="75%" stroke="#2a2a3d" stroke-width="1" stroke-dasharray="4,4"/>
-        </svg>
+        <line x1="50" y1="20" x2="580" y2="20" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+        <line x1="50" y1="60" x2="580" y2="60" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+        <line x1="50" y1="100" x2="580" y2="100" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+        <line x1="50" y1="140" x2="580" y2="140" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+        <line x1="50" y1="180" x2="580" y2="180" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+        <line x1="50" y1="220" x2="580" y2="220" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
 
-        <div class="vbar-group">
-          <div class="vbar-val">66M</div>
-          <div class="vbar" style="height:140px;background:linear-gradient(180deg,#f5c469,#c8842a);"></div>
-          <div class="vbar-label">Brazil</div>
-        </div>
-        <div class="vbar-group">
-          <div class="vbar-val">29M</div>
-          <div class="vbar" style="height:62px;background:linear-gradient(180deg,#60a5fa,#3b82f6);"></div>
-          <div class="vbar-label">Vietnam</div>
-        </div>
-        <div class="vbar-group">
-          <div class="vbar-val">13M</div>
-          <div class="vbar" style="height:27px;background:linear-gradient(180deg,#4ade80,#22c55e);"></div>
-          <div class="vbar-label">Colombia</div>
-        </div>
-        <div class="vbar-group">
-          <div class="vbar-val">8M</div>
-          <div class="vbar" style="height:17px;background:linear-gradient(180deg,#a78bfa,#8b5cf6);"></div>
-          <div class="vbar-label">Indonesia</div>
-        </div>
-        <div class="vbar-group">
-          <div class="vbar-val">7.5M</div>
-          <div class="vbar" style="height:16px;background:linear-gradient(180deg,#f472b6,#ec4899);"></div>
-          <div class="vbar-label">Ethiopia</div>
-        </div>
-        <div class="vbar-group">
-          <div class="vbar-val">5.5M</div>
-          <div class="vbar" style="height:11px;background:linear-gradient(180deg,#2dd4bf,#14b8a6);"></div>
-          <div class="vbar-label">Honduras</div>
-        </div>
-        <div class="vbar-group">
-          <div class="vbar-val">4.2M</div>
-          <div class="vbar" style="height:9px;background:linear-gradient(180deg,#fb923c,#f97316);"></div>
-          <div class="vbar-label">India</div>
-        </div>
-      </div>
+        <!-- Y-axis labels -->
+        <text x="40" y="24" fill="#5a5a78" font-size="11" text-anchor="end">75</text>
+        <text x="40" y="64" fill="#5a5a78" font-size="11" text-anchor="end">60</text>
+        <text x="40" y="104" fill="#5a5a78" font-size="11" text-anchor="end">45</text>
+        <text x="40" y="144" fill="#5a5a78" font-size="11" text-anchor="end">30</text>
+        <text x="40" y="184" fill="#5a5a78" font-size="11" text-anchor="end">15</text>
+        <text x="40" y="224" fill="#5a5a78" font-size="11" text-anchor="end">0</text>
+
+        <!-- Brazil: 66M -->
+        <rect x="65" y="44" width="62" height="176" rx="6" fill="url(#barGrad1)"/>
+        <text x="96" y="38" fill="#f5c87a" font-size="12" font-weight="700" text-anchor="middle">66M</text>
+        <text x="96" y="242" fill="#9090a8" font-size="11" text-anchor="middle">🇧🇷 Brazil</text>
+
+        <!-- Vietnam: 30M -->
+        <rect x="145" y="124" width="62" height="96" rx="6" fill="url(#barGrad2)"/>
+        <text x="176" y="118" fill="#e8a84e" font-size="12" font-weight="700" text-anchor="middle">30M</text>
+        <text x="176" y="242" fill="#9090a8" font-size="11" text-anchor="middle">🇻🇳 Vietnam</text>
+
+        <!-- Colombia: 14M -->
+        <rect x="225" y="176" width="62" height="44" rx="6" fill="url(#barGrad3)"/>
+        <text x="256" y="170" fill="#c8853a" font-size="12" font-weight="700" text-anchor="middle">14M</text>
+        <text x="256" y="242" fill="#9090a8" font-size="11" text-anchor="middle">🇨🇴 Colombia</text>
+
+        <!-- Indonesia: 12M -->
+        <rect x="305" y="182" width="62" height="38" rx="6" fill="url(#barGrad3)" opacity="0.85"/>
+        <text x="336" y="176" fill="#c8853a" font-size="12" font-weight="700" text-anchor="middle">12M</text>
+        <text x="336" y="242" fill="#9090a8" font-size="11" text-anchor="middle">🇮🇩 Indonesia</text>
+
+        <!-- Ethiopia: 8M -->
+        <rect x="385" y="195" width="62" height="25" rx="6" fill="url(#barGrad3)" opacity="0.7"/>
+        <text x="416" y="189" fill="#c8853a" font-size="12" font-weight="700" text-anchor="middle">8M</text>
+        <text x="416" y="242" fill="#9090a8" font-size="11" text-anchor="middle">🇪🇹 Ethiopia</text>
+
+        <!-- Honduras: 6M -->
+        <rect x="465" y="201" width="62" height="19" rx="6" fill="url(#barGrad3)" opacity="0.55"/>
+        <text x="496" y="195" fill="#9090a8" font-size="12" font-weight="700" text-anchor="middle">6M</text>
+        <text x="496" y="242" fill="#9090a8" font-size="11" text-anchor="middle">🇭🇳 Honduras</text>
+
+        <!-- X-axis line -->
+        <line x1="50" y1="220" x2="580" y2="220" stroke="rgba(200,133,58,0.2)" stroke-width="1"/>
+      </svg>
     </div>
 
-    <!-- HBAR: Top Consumers Per Capita -->
-    <div class="chart-card teal-border">
-      <div class="section-title"><span class="dot" style="background:var(--teal)"></span>Coffee Consumption Per Capita</div>
-      <div class="section-desc">Kg of coffee per person per year</div>
+    <!-- TOP CONSUMING COUNTRIES -->
+    <div class="card">
+      <div class="card-title">Consumption</div>
+      <div class="card-heading">Top Consuming Nations (kg per capita/year)</div>
 
-      <div style="margin-top:10px;">
-        <div class="hbar-item">
-          <div class="hbar-label">Finland</div>
-          <div class="hbar-track">
-            <div class="hbar-fill" style="width:100%;background:linear-gradient(90deg,#2dd4bf,#0891b2);">
-              <span class="hbar-val">12.0 kg</span>
-            </div>
-          </div>
+      <div class="country-row">
+        <div class="country-card">
+          <div class="country-flag">🇫🇮</div>
+          <div class="country-kg">12.0kg</div>
+          <div class="country-name">Finland</div>
         </div>
-        <div class="hbar-item">
-          <div class="hbar-label">Norway</div>
-          <div class="hbar-track">
-            <div class="hbar-fill" style="width:83%;background:linear-gradient(90deg,#60a5fa,#3b82f6);">
-              <span class="hbar-val">9.9 kg</span>
-            </div>
-          </div>
+        <div class="country-card">
+          <div class="country-flag">🇳🇴</div>
+          <div class="country-kg">9.9kg</div>
+          <div class="country-name">Norway</div>
         </div>
-        <div class="hbar-item">
-          <div class="hbar-label">Iceland</div>
-          <div class="hbar-track">
-            <div class="hbar-fill" style="width:77%;background:linear-gradient(90deg,#a78bfa,#8b5cf6);">
-              <span class="hbar-val">9.2 kg</span>
-            </div>
-          </div>
+        <div class="country-card">
+          <div class="country-flag">🇮🇸</div>
+          <div class="country-kg">9.0kg</div>
+          <div class="country-name">Iceland</div>
         </div>
-        <div class="hbar-item">
-          <div class="hbar-label">Denmark</div>
-          <div class="hbar-track">
-            <div class="hbar-fill" style="width:72%;background:linear-gradient(90deg,#f472b6,#ec4899);">
-              <span class="hbar-val">8.7 kg</span>
-            </div>
-          </div>
+        <div class="country-card">
+          <div class="country-flag">🇩🇰</div>
+          <div class="country-kg">8.7kg</div>
+          <div class="country-name">Denmark</div>
         </div>
-        <div class="hbar-item">
-          <div class="hbar-label">Netherlands</div>
-          <div class="hbar-track">
-            <div class="hbar-fill" style="width:65%;background:linear-gradient(90deg,#4ade80,#22c55e);">
-              <span class="hbar-val">7.8 kg</span>
-            </div>
-          </div>
+        <div class="country-card">
+          <div class="country-flag">🇳🇱</div>
+          <div class="country-kg">8.4kg</div>
+          <div class="country-name">Netherlands</div>
         </div>
-        <div class="hbar-item">
-          <div class="hbar-label">Sweden</div>
-          <div class="hbar-track">
-            <div class="hbar-fill" style="width:60%;background:linear-gradient(90deg,#fb923c,#f97316);">
-              <span class="hbar-val">7.2 kg</span>
-            </div>
-          </div>
+        <div class="country-card">
+          <div class="country-flag">🇸🇪</div>
+          <div class="country-kg">8.2kg</div>
+          <div class="country-name">Sweden</div>
         </div>
-        <div class="hbar-item">
-          <div class="hbar-label">Switzerland</div>
-          <div class="hbar-track">
-            <div class="hbar-fill" style="width:52%;background:linear-gradient(90deg,#f5c469,#c8842a);">
-              <span class="hbar-val">6.3 kg</span>
-            </div>
-          </div>
-        </div>
-        <div class="hbar-item">
-          <div class="hbar-label">USA</div>
-          <div class="hbar-track">
-            <div class="hbar-fill" style="width:37%;background:linear-gradient(90deg,#94a3b8,#64748b);">
-              <span class="hbar-val">4.5 kg</span>
-            </div>
-          </div>
-        </div>
+      </div>
+
+      <div class="highlight-box" style="margin-top:16px;">
+        <p>Scandinavia dominates coffee consumption. Finland averages <strong>4–5 cups per adult per day</strong>, the highest in the world. In contrast, the global average is <strong>1.4 cups/person/day</strong>.</p>
       </div>
     </div>
   </div>
 
-  <!-- SECTION 2: COFFEE TYPES (DONUT) + CAFFEINE INFO -->
-  <div class="grid-1-2" style="margin-bottom:24px;">
+  <!-- SECTION 2: MARKET SHARE & TYPES -->
+  <div class="section-divider">
+    <div class="section-number">02</div>
+    <h2>Coffee Types & Market Share</h2>
+    <div class="line"></div>
+  </div>
 
-    <!-- DONUT: Coffee Species -->
-    <div class="chart-card purple-border">
-      <div class="section-title"><span class="dot" style="background:var(--purple)"></span>Coffee Species</div>
-      <div class="section-desc">Global production share by species</div>
+  <div class="grid grid-2" style="margin-bottom:20px;">
+    <!-- DONUT CHART: Species -->
+    <div class="card">
+      <div class="card-title">Species Breakdown</div>
+      <div class="card-heading">Global Production by Coffee Species</div>
 
-      <div class="donut-wrapper">
-        <svg width="140" height="140" viewBox="0 0 140 140">
+      <div class="donut-wrap">
+        <svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <filter id="glow">
               <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
               <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
             </filter>
           </defs>
-          <!-- Background circle -->
-          <circle cx="70" cy="70" r="55" fill="none" stroke="#1f1f2e" stroke-width="22"/>
 
-          <!-- Arabica 60% -->
-          <circle cx="70" cy="70" r="55" fill="none" stroke="#c8842a" stroke-width="22"
-            stroke-dasharray="207.3 138.2" stroke-dashoffset="0"
-            transform="rotate(-90 70 70)" filter="url(#glow)"/>
-          <!-- Robusta 37% -->
-          <circle cx="70" cy="70" r="55" fill="none" stroke="#a78bfa" stroke-width="22"
-            stroke-dasharray="127.8 217.7" stroke-dashoffset="-207.3"
-            transform="rotate(-90 70 70)"/>
-          <!-- Liberica 3% -->
-          <circle cx="70" cy="70" r="55" fill="none" stroke="#4ade80" stroke-width="22"
-            stroke-dasharray="10.4 334.1" stroke-dashoffset="-335.1"
-            transform="rotate(-90 70 70)"/>
+          <!-- Arabica: 60% = 216deg -->
+          <!-- stroke-dasharray: circumference = 2π×70 = 439.8 -->
+          <!-- 60% = 263.9, gap = 175.9 -->
+          <circle cx="100" cy="100" r="70" fill="none" stroke="#1a1a26" stroke-width="32"/>
+          <circle cx="100" cy="100" r="70" fill="none" stroke="#f5c87a" stroke-width="32"
+            stroke-dasharray="263.9 175.9" stroke-dashoffset="0" transform="rotate(-90 100 100)" filter="url(#glow)"/>
 
-          <!-- Center -->
-          <circle cx="70" cy="70" r="38" fill="#1a1a26"/>
-          <text x="70" y="65" text-anchor="middle" fill="#f5c469" font-size="18" font-weight="700" font-family="Space Grotesk, sans-serif">60%</text>
-          <text x="70" y="80" text-anchor="middle" fill="#9090b0" font-size="10" font-family="Inter, sans-serif">Arabica</text>
+          <!-- Robusta: 38% = 136.8deg = 167.1, starts at 263.9 -->
+          <circle cx="100" cy="100" r="70" fill="none" stroke="#c8703a" stroke-width="32"
+            stroke-dasharray="167.1 272.7" stroke-dashoffset="-263.9" transform="rotate(-90 100 100)"/>
+
+          <!-- Liberica: 2% = 7.2deg = 8.8 -->
+          <circle cx="100" cy="100" r="70" fill="none" stroke="#4caf7d" stroke-width="32"
+            stroke-dasharray="8.8 431" stroke-dashoffset="-431" transform="rotate(-90 100 100)"/>
+
+          <!-- Inner -->
+          <circle cx="100" cy="100" r="54" fill="#12121a"/>
+          <text x="100" y="94" fill="#f5c87a" font-size="26" font-weight="900" text-anchor="middle" font-family="Inter">60%</text>
+          <text x="100" y="112" fill="#9090a8" font-size="11" text-anchor="middle" font-family="Inter">Arabica</text>
         </svg>
 
         <div class="donut-legend">
           <div class="legend-item">
-            <div class="legend-dot" style="background:#c8842a;"></div>
-            <div class="legend-text">Arabica<br><span style="font-size:10px;color:#6060a0;">Smooth, complex</span></div>
-            <div class="legend-pct" style="color:#c8842a;">60%</div>
+            <div class="legend-dot" style="background:#f5c87a;"></div>
+            <div class="legend-label">Arabica</div>
+            <div class="legend-val">60%</div>
           </div>
           <div class="legend-item">
-            <div class="legend-dot" style="background:#a78bfa;"></div>
-            <div class="legend-text">Robusta<br><span style="font-size:10px;color:#6060a0;">Bold, higher caffeine</span></div>
-            <div class="legend-pct" style="color:#a78bfa;">37%</div>
+            <div class="legend-dot" style="background:#c8703a;"></div>
+            <div class="legend-label">Robusta</div>
+            <div class="legend-val">38%</div>
           </div>
           <div class="legend-item">
-            <div class="legend-dot" style="background:#4ade80;"></div>
-            <div class="legend-text">Liberica<br><span style="font-size:10px;color:#6060a0;">Rare, smoky</span></div>
-            <div class="legend-pct" style="color:#4ade80;">3%</div>
+            <div class="legend-dot" style="background:#4caf7d;"></div>
+            <div class="legend-label">Liberica</div>
+            <div class="legend-val">2%</div>
+          </div>
+          <div style="margin-top:8px; padding:14px; background:var(--surface2); border-radius:10px; border:1px solid rgba(255,255,255,0.05);">
+            <div style="font-size:11px; color:var(--text2); line-height:1.6;">
+              <strong style="color:var(--accent3);">Arabica</strong> — sweeter, complex, higher altitude<br>
+              <strong style="color:#c8703a;">Robusta</strong> — stronger, more caffeine (2.7%)<br>
+              <strong style="color:#4caf7d;">Liberica</strong> — rare, floral, fruity profile
+            </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Caffeine & Brew Methods -->
-    <div class="chart-card">
-      <div class="section-title"><span class="dot" style="background:var(--blue)"></span>Caffeine Content by Brew Method</div>
-      <div class="section-desc">mg of caffeine per standard serving</div>
+    <!-- DONUT CHART: Drink types -->
+    <div class="card">
+      <div class="card-title">Beverage Popularity</div>
+      <div class="card-heading">Most Popular Coffee Drinks Worldwide (%)</div>
 
-      <div style="margin-top:8px;">
-        <div class="gauge-item">
-          <div class="gauge-label">Cold Brew</div>
-          <div class="gauge-bar"><div class="gauge-fill" style="width:95%;background:linear-gradient(90deg,#2dd4bf,#06b6d4);"></div></div>
-          <div class="gauge-val">200mg</div>
-        </div>
-        <div class="gauge-item">
-          <div class="gauge-label">Drip Coffee</div>
-          <div class="gauge-bar"><div class="gauge-fill" style="width:85%;background:linear-gradient(90deg,#60a5fa,#3b82f6);"></div></div>
-          <div class="gauge-val">180mg</div>
-        </div>
-        <div class="gauge-item">
-          <div class="gauge-label">French Press</div>
-          <div class="gauge-bar"><div class="gauge-fill" style="width:75%;background:linear-gradient(90deg,#a78bfa,#8b5cf6);"></div></div>
-          <div class="gauge-val">107mg</div>
-        </div>
-        <div class="gauge-item">
-          <div class="gauge-label">Espresso</div>
-          <div class="gauge-bar"><div class="gauge-fill" style="width:62%;background:linear-gradient(90deg,#c8842a,#f5c469);"></div></div>
-          <div class="gauge-val">63mg</div>
-        </div>
-        <div class="gauge-item">
-          <div class="gauge-label">Latte/Cap</div>
-          <div class="gauge-bar"><div class="gauge-fill" style="width:47%;background:linear-gradient(90deg,#f472b6,#ec4899);"></div></div>
-          <div class="gauge-val">63mg</div>
-        </div>
-        <div class="gauge-item">
-          <div class="gauge-label">Decaf</div>
-          <div class="gauge-bar"><div class="gauge-fill" style="width:4%;background:linear-gradient(90deg,#64748b,#475569);"></div></div>
-          <div class="gauge-val">5mg</div>
-        </div>
-      </div>
+      <div class="donut-wrap">
+        <svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+          <!-- Espresso/variants 35% = 153.9 -->
+          <circle cx="100" cy="100" r="70" fill="none" stroke="#1a1a26" stroke-width="32"/>
+          <circle cx="100" cy="100" r="70" fill="none" stroke="#e8a84e" stroke-width="32"
+            stroke-dasharray="153.9 285.9" stroke-dashoffset="0" transform="rotate(-90 100 100)"/>
+          <!-- Filter/Drip 28% = 123.1 -->
+          <circle cx="100" cy="100" r="70" fill="none" stroke="#8b5cf6" stroke-width="32"
+            stroke-dasharray="123.1 316.7" stroke-dashoffset="-153.9" transform="rotate(-90 100 100)"/>
+          <!-- Cold brew/Iced 18% = 79.2 -->
+          <circle cx="100" cy="100" r="70" fill="none" stroke="#4a90d9" stroke-width="32"
+            stroke-dasharray="79.2 360.6" stroke-dashoffset="-277" transform="rotate(-90 100 100)"/>
+          <!-- Capsule 12% = 52.8 -->
+          <circle cx="100" cy="100" r="70" fill="none" stroke="#c8853a" stroke-width="32"
+            stroke-dasharray="52.8 387" stroke-dashoffset="-356.2" transform="rotate(-90 100 100)"/>
+          <!-- Other 7% = 30.8 -->
+          <circle cx="100" cy="100" r="70" fill="none" stroke="#5a5a78" stroke-width="32"
+            stroke-dasharray="30.8 409" stroke-dashoffset="-409" transform="rotate(-90 100 100)"/>
 
-      <div style="margin-top:20px;padding-top:16px;border-top:1px solid var(--border);">
-        <div class="info-grid">
-          <div class="info-pill">
-            <div class="pill-icon" style="background:rgba(200,132,42,0.15);">☕</div>
-            <div class="pill-content">
-              <div class="pill-num" style="color:#f5c469;">400mg</div>
-              <div class="pill-desc">Safe daily caffeine limit (FDA)</div>
-            </div>
+          <circle cx="100" cy="100" r="54" fill="#12121a"/>
+          <text x="100" y="94" fill="#e8a84e" font-size="26" font-weight="900" text-anchor="middle" font-family="Inter">35%</text>
+          <text x="100" y="112" fill="#9090a8" font-size="11" text-anchor="middle" font-family="Inter">Espresso</text>
+        </svg>
+
+        <div class="donut-legend">
+          <div class="legend-item">
+            <div class="legend-dot" style="background:#e8a84e;"></div>
+            <div class="legend-label">Espresso-based</div>
+            <div class="legend-val">35%</div>
           </div>
-          <div class="info-pill">
-            <div class="pill-icon" style="background:rgba(45,212,191,0.15);">⏱</div>
-            <div class="pill-content">
-              <div class="pill-num" style="color:#2dd4bf;">5 hrs</div>
-              <div class="pill-desc">Caffeine half-life in body</div>
-            </div>
+          <div class="legend-item">
+            <div class="legend-dot" style="background:#8b5cf6;"></div>
+            <div class="legend-label">Filter/Drip</div>
+            <div class="legend-val">28%</div>
           </div>
-          <div class="info-pill">
-            <div class="pill-icon" style="background:rgba(167,139,250,0.15);">🌡</div>
-            <div class="pill-content">
-              <div class="pill-num" style="color:#a78bfa;">93°C</div>
-              <div class="pill-desc">Ideal brew temperature</div>
-            </div>
+          <div class="legend-item">
+            <div class="legend-dot" style="background:#4a90d9;"></div>
+            <div class="legend-label">Cold Brew/Iced</div>
+            <div class="legend-val">18%</div>
           </div>
-          <div class="info-pill">
-            <div class="pill-icon" style="background:rgba(96,165,250,0.15);">💧</div>
-            <div class="pill-content">
-              <div class="pill-num" style="color:#60a5fa;">1:15</div>
-              <div class="pill-desc">Coffee to water brew ratio</div>
-            </div>
+          <div class="legend-item">
+            <div class="legend-dot" style="background:#c8853a;"></div>
+            <div class="legend-label">Capsule/Pod</div>
+            <div class="legend-val">12%</div>
+          </div>
+          <div class="legend-item">
+            <div class="legend-dot" style="background:#5a5a78;"></div>
+            <div class="legend-label">Other</div>
+            <div class="legend-val">7%</div>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- SECTION 3: GLOBAL MARKET REVENUE LINE CHART -->
-  <div class="chart-card" style="margin-bottom:24px;">
-    <div class="section-title"><span class="dot" style="background:var(--teal)"></span>Global Coffee Market Revenue Growth</div>
-    <div class="section-desc">Billion USD — total coffee industry revenue 2018–2028 (2026–2028 projected)</div>
+  <!-- SECTION 3: MARKET GROWTH -->
+  <div class="section-divider">
+    <div class="section-number">03</div>
+    <h2>Market Growth & Trends</h2>
+    <div class="line"></div>
+  </div>
 
-    <div class="line-chart-wrap">
-      <svg width="100%" height="200" viewBox="0 0 900 200" preserveAspectRatio="none">
+  <div class="grid grid-2-1" style="margin-bottom:20px;">
+    <!-- LINE CHART -->
+    <div class="card">
+      <div class="card-title">Industry Revenue</div>
+      <div class="card-heading">Global Coffee Market Value 2015–2024 (USD Billions)</div>
+
+      <svg class="line-chart-wrap" viewBox="0 0 580 240" xmlns="http://www.w3.org/2000/svg">
         <defs>
-          <linearGradient id="lineGrad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#2dd4bf" stop-opacity="0.4"/>
-            <stop offset="100%" stop-color="#2dd4bf" stop-opacity="0"/>
+          <linearGradient id="lineArea" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#c8853a" stop-opacity="0.3"/>
+            <stop offset="100%" stop-color="#c8853a" stop-opacity="0.01"/>
           </linearGradient>
-          <linearGradient id="lineGrad2" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#f5c469" stop-opacity="0.4"/>
-            <stop offset="100%" stop-color="#f5c469" stop-opacity="0"/>
+          <linearGradient id="coldArea" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#4a90d9" stop-opacity="0.2"/>
+            <stop offset="100%" stop-color="#4a90d9" stop-opacity="0.01"/>
           </linearGradient>
         </defs>
 
-        <!-- Grid lines -->
-        <line x1="0" y1="40" x2="900" y2="40" stroke="#2a2a3d" stroke-width="1" stroke-dasharray="6,6"/>
-        <line x1="0" y1="80" x2="900" y2="80" stroke="#2a2a3d" stroke-width="1" stroke-dasharray="6,6"/>
-        <line x1="0" y1="120" x2="900" y2="120" stroke="#2a2a3d" stroke-width="1" stroke-dasharray="6,6"/>
-        <line x1="0" y1="160" x2="900" y2="160" stroke="#2a2a3d" stroke-width="1" stroke-dasharray="6,6"/>
+        <!-- Grid -->
+        <line x1="50" y1="20" x2="560" y2="20" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+        <line x1="50" y1="60" x2="560" y2="60" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+        <line x1="50" y1="100" x2="560" y2="100" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+        <line x1="50" y1="140" x2="560" y2="140" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+        <line x1="50" y1="180" x2="560" y2="180" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
 
-        <!-- Y-axis labels -->
-        <text x="10" y="44" fill="#6060a0" font-size="14" font-family="Inter">$650B</text>
-        <text x="10" y="84" fill="#6060a0" font-size="14" font-family="Inter">$550B</text>
-        <text x="10" y="124" fill="#6060a0" font-size="14" font-family="Inter">$450B</text>
-        <text x="10" y="164" fill="#6060a0" font-size="14" font-family="Inter">$350B</text>
+        <!-- Y labels -->
+        <text x="42" y="24" fill="#5a5a78" font-size="10" text-anchor="end">$550B</text>
+        <text x="42" y="64" fill="#5a5a78" font-size="10" text-anchor="end">$480B</text>
+        <text x="42" y="104" fill="#5a5a78" font-size="10" text-anchor="end">$410B</text>
+        <text x="42" y="144" fill="#5a5a78" font-size="10" text-anchor="end">$340B</text>
+        <text x="42" y="184" fill="#5a5a78" font-size="10" text-anchor="end">$270B</text>
 
-        <!-- Area fill: coffee market revenue -->
-        <!-- Points: 2018=$363B, 2019=$390B, 2020=$400B, 2021=$430B, 2022=$462B, 2023=$495B, 2024→2028 projected -->
-        <!-- Mapping: $300B=190, $700B=10, so 1B = (190-10)/(700-300) = 0.45px; y = 190 - (val-300)*0.45 -->
-        <!-- 363→RY=163-0.45*63=190-28=162, x positions: 0,127,254,381,508,635,762,889 for 8 years (2018-2025) -->
+        <!-- X labels: 2015-2024 (9 intervals, 10 points) -->
+        <!-- x positions: 60, 118, 176, 234, 292, 350, 408, 466, 524 for 2015-2023, 2024 = 560? Let's use 10 points 2015-2024 -->
+        <!-- x = 60 + i*55.5 for i=0..9 -->
+        <!-- Data: 270, 290, 305, 315, 330, 295(covid dip), 345, 390, 450, 495 -->
 
-        <polygon
-          points="70,172 196,160 322,155 448,141 574,126 700,108 780,94 870,76 870,190 70,190"
-          fill="url(#lineGrad)"/>
+        <!-- Area fill - Total Market -->
+        <path d="M60,184 L115,170 L171,160 L226,154 L282,142 L337,162 L393,126 L448,88 L504,46 L559,26 L559,180 L504,180 L448,180 L393,180 L337,180 L282,180 L226,180 L171,180 L115,180 L60,180 Z" fill="url(#lineArea)"/>
 
-        <!-- Line actual -->
-        <polyline
-          points="70,172 196,160 322,155 448,141 574,126 700,108"
-          fill="none" stroke="#2dd4bf" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        <!-- Total Market Line -->
+        <polyline points="60,184 115,170 171,160 226,154 282,142 337,162 393,126 448,88 504,46 559,26"
+          fill="none" stroke="#c8853a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
 
-        <!-- Line projected (dashed) -->
-        <polyline
-          points="700,108 780,94 870,76"
-          fill="none" stroke="#2dd4bf" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"
-          stroke-dasharray="8,5" opacity="0.7"/>
+        <!-- Cold brew sub-trend line -->
+        <polyline points="60,178 115,176 171,174 226,170 282,164 337,162 393,150 448,132 504,110 559,88"
+          fill="none" stroke="#4a90d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="5,3"/>
 
-        <!-- Data points actual -->
-        <circle cx="70" cy="172" r="5" fill="#2dd4bf" stroke="#0a0a0f" stroke-width="2"/>
-        <circle cx="196" cy="160" r="5" fill="#2dd4bf" stroke="#0a0a0f" stroke-width="2"/>
-        <circle cx="322" cy="155" r="5" fill="#2dd4bf" stroke="#0a0a0f" stroke-width="2"/>
-        <circle cx="448" cy="141" r="5" fill="#2dd4bf" stroke="#0a0a0f" stroke-width="2"/>
-        <circle cx="574" cy="126" r="5" fill="#2dd4bf" stroke="#0a0a0f" stroke-width="2"/>
-        <circle cx="700" cy="108" r="7" fill="#f5c469" stroke="#0a0a0f" stroke-width="2"/>
+        <!-- Dots - Total -->
+        <circle cx="60" cy="184" r="4" fill="#c8853a"/>
+        <circle cx="115" cy="170" r="4" fill="#c8853a"/>
+        <circle cx="171" cy="160" r="4" fill="#c8853a"/>
+        <circle cx="226" cy="154" r="4" fill="#c8853a"/>
+        <circle cx="282" cy="142" r="4" fill="#c8853a"/>
+        <circle cx="337" cy="162" r="4" fill="#e85555"/>
+        <circle cx="393" cy="126" r="4" fill="#c8853a"/>
+        <circle cx="448" cy="88" r="4" fill="#c8853a"/>
+        <circle cx="504" cy="46" r="5" fill="#f5c87a"/>
+        <circle cx="559" cy="26" r="5" fill="#f5c87a"/>
 
-        <!-- Projected points -->
-        <circle cx="780" cy="94" r="5" fill="#2dd4bf" stroke="#0a0a0f" stroke-width="2" opacity="0.7"/>
-        <circle cx="870" cy="76" r="5" fill="#2dd4bf" stroke="#0a0a0f" stroke-width="2" opacity="0.7"/>
+        <!-- COVID label -->
+        <text x="337" y="175" fill="#e85555" font-size="9" text-anchor="middle">COVID</text>
 
-        <!-- Labels above points -->
-        <text x="55" y="165" fill="#9090b0" font-size="13" font-family="Inter">$363B</text>
-        <text x="181" y="153" fill="#9090b0" font-size="13" font-family="Inter">$390B</text>
-        <text x="307" y="148" fill="#9090b0" font-size="13" font-family="Inter">$400B</text>
-        <text x="433" y="134" fill="#9090b0" font-size="13" font-family="Inter">$430B</text>
-        <text x="559" y="119" fill="#9090b0" font-size="13" font-family="Inter">$462B</text>
-        <text x="678" y="100" fill="#f5c469" font-size="14" font-weight="bold" font-family="Inter">$495B</text>
-        <text x="756" y="86" fill="#6060a0" font-size="13" font-family="Inter">$540B</text>
-        <text x="844" y="68" fill="#6060a0" font-size="13" font-family="Inter">$635B</text>
-
-        <!-- X-axis labels -->
-        <text x="60" y="195" fill="#6060a0" font-size="13" text-anchor="middle" font-family="Inter">2018</text>
-        <text x="186" y="195" fill="#6060a0" font-size="13" text-anchor="middle" font-family="Inter">2019</text>
-        <text x="312" y="195" fill="#6060a0" font-size="13" text-anchor="middle" font-family="Inter">2020</text>
-        <text x="438" y="195" fill="#6060a0" font-size="13" text-anchor="middle" font-family="Inter">2021</text>
-        <text x="564" y="195" fill="#6060a0" font-size="13" text-anchor="middle" font-family="Inter">2022</text>
-        <text x="690" y="195" fill="#f5c469" font-size="13" text-anchor="middle" font-weight="bold" font-family="Inter">2023</text>
-        <text x="770" y="195" fill="#6060a0" font-size="13" text-anchor="middle" font-family="Inter">2025★</text>
-        <text x="860" y="195" fill="#6060a0" font-size="13" text-anchor="middle" font-family="Inter">2028★</text>
+        <!-- X axis labels -->
+        <text x="60" y="200" fill="#5a5a78" font-size="10" text-anchor="middle">2015</text>
+        <text x="171" y="200" fill="#5a5a78" font-size="10" text-anchor="middle">2017</text>
+        <text x="282" y="200" fill="#5a5a78" font-size="10" text-anchor="middle">2019</text>
+        <text x="393" y="200" fill="#5a5a78" font-size="10" text-anchor="middle">2021</text>
+        <text x="504" y="200" fill="#5a5a78" font-size="10" text-anchor="middle">2023</text>
+        <text x="559" y="200" fill="#9090a8" font-size="10" text-anchor="middle">2024</text>
 
         <!-- Legend -->
-        <line x1="620" y1="18" x2="648" y2="18" stroke="#2dd4bf" stroke-width="3"/>
-        <circle cx="634" cy="18" r="4" fill="#2dd4bf"/>
-        <text x="654" y="23" fill="#9090b0" font-size="13" font-family="Inter">Actual</text>
-        <line x1="720" y1="18" x2="748" y2="18" stroke="#2dd4bf" stroke-width="3" stroke-dasharray="6,4"/>
-        <text x="754" y="23" fill="#9090b0" font-size="13" font-family="Inter">Projected ★</text>
+        <line x1="60" y1="225" x2="90" y2="225" stroke="#c8853a" stroke-width="2.5"/>
+        <circle cx="75" cy="225" r="3" fill="#c8853a"/>
+        <text x="95" y="229" fill="#9090a8" font-size="10">Total Market</text>
+        <line x1="180" y1="225" x2="210" y2="225" stroke="#4a90d9" stroke-width="2" stroke-dasharray="5,3"/>
+        <text x="215" y="229" fill="#9090a8" font-size="10">Cold Brew Segment</text>
+
+        <!-- X axis line -->
+        <line x1="50" y1="188" x2="560" y2="188" stroke="rgba(200,133,58,0.15)" stroke-width="1"/>
+      </svg>
+
+    </div>
+
+    <!-- SPECIALTY COFFEE STATS -->
+    <div class="card">
+      <div class="card-title">Specialty Segment</div>
+      <div class="card-heading">Specialty Coffee Growth Facts</div>
+
+      <div class="specialty-grid">
+        <div class="spec-card" style="--c:#f5c87a;">
+          <div style="position:absolute;left:0;top:0;bottom:0;width:3px;background:#f5c87a;border-radius:3px 0 0 3px;"></div>
+          <div class="spec-pct">45%</div>
+          <div class="spec-title">US Adults</div>
+          <div class="spec-sub">drink specialty coffee daily</div>
+        </div>
+        <div class="spec-card">
+          <div style="position:absolute;left:0;top:0;bottom:0;width:3px;background:#8b5cf6;border-radius:3px 0 0 3px;"></div>
+          <div class="spec-pct" style="color:#8b5cf6;">11%</div>
+          <div class="spec-title">CAGR</div>
+          <div class="spec-sub">Specialty growth 2020–2025</div>
+        </div>
+        <div class="spec-card">
+          <div style="position:absolute;left:0;top:0;bottom:0;width:3px;background:#4a90d9;border-radius:3px 0 0 3px;"></div>
+          <div class="spec-pct" style="color:#4a90d9;">25%</div>
+          <div class="spec-title">Cold Brew</div>
+          <div class="spec-sub">fastest growing segment</div>
+        </div>
+        <div class="spec-card">
+          <div style="position:absolute;left:0;top:0;bottom:0;width:3px;background:#4caf7d;border-radius:3px 0 0 3px;"></div>
+          <div class="spec-pct" style="color:#4caf7d;">$3B</div>
+          <div class="spec-title">Capsule Market</div>
+          <div class="spec-sub">Nespresso + Keurig 2023</div>
+        </div>
+      </div>
+
+      <div class="highlight-box">
+        <p>The <strong>specialty coffee</strong> industry has grown over <strong>3× faster</strong> than the mainstream market since 2019, driven by Gen Z preference for quality and origin-traceability.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 4: CAFFEINE & HEALTH -->
+  <div class="section-divider">
+    <div class="section-number">04</div>
+    <h2>Caffeine Content & Health</h2>
+    <div class="line"></div>
+  </div>
+
+  <div class="grid grid-2" style="margin-bottom:20px;">
+    <!-- CAFFEINE HBAR -->
+    <div class="card">
+      <div class="card-title">Caffeine Comparison</div>
+      <div class="card-heading">Average Caffeine Content per Serving (mg)</div>
+
+      <div class="hbar-container">
+        <div class="hbar-item">
+          <div class="hbar-label-row">
+            <span class="hbar-label">☕ Espresso (30ml)</span>
+            <span class="hbar-value">63mg</span>
+          </div>
+          <div class="hbar-track"><div class="hbar-fill" style="width:63%;background:linear-gradient(90deg,#8b4a2f,#f5c87a);"></div></div>
+        </div>
+        <div class="hbar-item">
+          <div class="hbar-label-row">
+            <span class="hbar-label">☕ Drip Coffee (240ml)</span>
+            <span class="hbar-value">95mg</span>
+          </div>
+          <div class="hbar-track"><div class="hbar-fill" style="width:95%;background:linear-gradient(90deg,#8b4a2f,#e8a84e);"></div></div>
+        </div>
+        <div class="hbar-item">
+          <div class="hbar-label-row">
+            <span class="hbar-label">☕ Cold Brew (240ml)</span>
+            <span class="hbar-value">155mg</span>
+          </div>
+          <div class="hbar-track"><div class="hbar-fill" style="width:100%;background:linear-gradient(90deg,#4a90d9,#f5c87a);"></div></div>
+        </div>
+        <div class="hbar-item">
+          <div class="hbar-label-row">
+            <span class="hbar-label">☕ Americano (240ml)</span>
+            <span class="hbar-value">75mg</span>
+          </div>
+          <div class="hbar-track"><div class="hbar-fill" style="width:75%;background:linear-gradient(90deg,#8b4a2f,#c8853a);"></div></div>
+        </div>
+        <div class="hbar-item">
+          <div class="hbar-label-row">
+            <span class="hbar-label">🍵 Black Tea (240ml)</span>
+            <span class="hbar-value">47mg</span>
+          </div>
+          <div class="hbar-track"><div class="hbar-fill" style="width:47%;background:linear-gradient(90deg,#4caf7d,#a8d9b8);"></div></div>
+        </div>
+        <div class="hbar-item">
+          <div class="hbar-label-row">
+            <span class="hbar-label">🥤 Energy Drink (240ml)</span>
+            <span class="hbar-value">80mg</span>
+          </div>
+          <div class="hbar-track"><div class="hbar-fill" style="width:80%;background:linear-gradient(90deg,#e85555,#ff9999);"></div></div>
+        </div>
+        <div class="hbar-item">
+          <div class="hbar-label-row">
+            <span class="hbar-label">🍫 Dark Chocolate (45g)</span>
+            <span class="hbar-value">23mg</span>
+          </div>
+          <div class="hbar-track"><div class="hbar-fill" style="width:23%;background:linear-gradient(90deg,#5a3a2a,#8b6a5a);"></div></div>
+        </div>
+      </div>
+      <div class="highlight-box">
+        <p>FDA safe limit: <strong>400mg/day</strong> for healthy adults (~4 cups drip coffee). Cold brew can have <strong>2× more caffeine</strong> than regular drip due to concentrate ratios.</p>
+      </div>
+    </div>
+
+    <!-- HEALTH BENEFITS HBAR -->
+    <div class="card">
+      <div class="card-title">Research Findings</div>
+      <div class="card-heading">Demonstrated Health Benefits (Risk Reduction)</div>
+
+      <div class="hbar-container">
+        <div class="hbar-item">
+          <div class="hbar-label-row">
+            <span class="hbar-label">Type 2 Diabetes Risk↓</span>
+            <span class="hbar-value">25–35%</span>
+          </div>
+          <div class="hbar-track"><div class="hbar-fill" style="width:35%;background:linear-gradient(90deg,#4caf7d,#a8d9b8);"></div></div>
+        </div>
+        <div class="hbar-item">
+          <div class="hbar-label-row">
+            <span class="hbar-label">Parkinson's Disease↓</span>
+            <span class="hbar-value">32–60%</span>
+          </div>
+          <div class="hbar-track"><div class="hbar-fill" style="width:60%;background:linear-gradient(90deg,#4caf7d,#a8d9b8);"></div></div>
+        </div>
+        <div class="hbar-item">
+          <div class="hbar-label-row">
+            <span class="hbar-label">Alzheimer's Disease↓</span>
+            <span class="hbar-value">20–27%</span>
+          </div>
+          <div class="hbar-track"><div class="hbar-fill" style="width:27%;background:linear-gradient(90deg,#8b5cf6,#c4b5fd);"></div></div>
+        </div>
+        <div class="hbar-item">
+          <div class="hbar-label-row">
+            <span class="hbar-label">Liver Cirrhosis Risk↓</span>
+            <span class="hbar-value">39–44%</span>
+          </div>
+          <div class="hbar-track"><div class="hbar-fill" style="width:44%;background:linear-gradient(90deg,#4a90d9,#93c5fd);"></div></div>
+        </div>
+        <div class="hbar-item">
+          <div class="hbar-label-row">
+            <span class="hbar-label">Depression Risk↓</span>
+            <span class="hbar-value">20%</span>
+          </div>
+          <div class="hbar-track"><div class="hbar-fill" style="width:20%;background:linear-gradient(90deg,#8b5cf6,#c4b5fd);"></div></div>
+        </div>
+        <div class="hbar-item">
+          <div class="hbar-label-row">
+            <span class="hbar-label">Colorectal Cancer↓</span>
+            <span class="hbar-value">15%</span>
+          </div>
+          <div class="hbar-track"><div class="hbar-fill" style="width:15%;background:linear-gradient(90deg,#4a90d9,#93c5fd);"></div></div>
+        </div>
+        <div class="hbar-item">
+          <div class="hbar-label-row">
+            <span class="hbar-label">Stroke Risk↓</span>
+            <span class="hbar-value">20%</span>
+          </div>
+          <div class="hbar-track"><div class="hbar-fill" style="width:20%;background:linear-gradient(90deg,#e8a84e,#f5c87a);"></div></div>
+        </div>
+      </div>
+      <div class="highlight-box">
+        <p>Based on population studies of <strong>3–4 cups/day</strong>. Coffee is one of the world's <strong>largest sources of antioxidants</strong> in the Western diet, containing chlorogenic acid, trigonelline, and melanoidins.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 5: SUPPLY CHAIN -->
+  <div class="section-divider">
+    <div class="section-number">05</div>
+    <h2>Supply Chain & Sustainability</h2>
+    <div class="line"></div>
+  </div>
+
+  <div class="grid grid-3" style="margin-bottom:20px;">
+    <!-- VBAR small: Price breakdown -->
+    <div class="card">
+      <div class="card-title">Price Distribution</div>
+      <div class="card-heading">Where Your $5 Latte Goes</div>
+
+      <svg viewBox="0 0 260 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;overflow:visible;">
+        <!-- Background reference bars -->
+        <line x1="30" y1="20" x2="240" y2="20" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+        <line x1="30" y1="55" x2="240" y2="55" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+        <line x1="30" y1="90" x2="240" y2="90" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+        <line x1="30" y1="125" x2="240" y2="125" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+        <line x1="30" y1="160" x2="240" y2="160" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+
+        <!-- Cafe/retail: 45% = $2.25 - height 112 -->
+        <rect x="40" y="48" width="32" height="112" rx="5" fill="#f5c87a"/>
+        <text x="56" y="42" fill="#f5c87a" font-size="10" font-weight="700" text-anchor="middle">$2.25</text>
+        <text x="56" y="178" fill="#9090a8" font-size="9" text-anchor="middle">Cafe</text>
+        <text x="56" y="189" fill="#9090a8" font-size="9" text-anchor="middle">(45%)</text>
+
+        <!-- Labor: 25% = $1.25 - height 62 -->
+        <rect x="87" y="98" width="32" height="62" rx="5" fill="#8b5cf6"/>
+        <text x="103" y="92" fill="#8b5cf6" font-size="10" font-weight="700" text-anchor="middle">$1.25</text>
+        <text x="103" y="178" fill="#9090a8" font-size="9" text-anchor="middle">Labor</text>
+        <text x="103" y="189" fill="#9090a8" font-size="9" text-anchor="middle">(25%)</text>
+
+        <!-- Cup/supply: 12% - height 30 -->
+        <rect x="134" y="130" width="32" height="30" rx="5" fill="#4a90d9"/>
+        <text x="150" y="124" fill="#4a90d9" font-size="10" font-weight="700" text-anchor="middle">$0.60</text>
+        <text x="150" y="178" fill="#9090a8" font-size="9" text-anchor="middle">Supply</text>
+        <text x="150" y="189" fill="#9090a8" font-size="9" text-anchor="middle">(12%)</text>
+
+        <!-- Milk: 8% = height 20 -->
+        <rect x="181" y="140" width="32" height="20" rx="5" fill="#4caf7d"/>
+        <text x="197" y="134" fill="#4caf7d" font-size="10" font-weight="700" text-anchor="middle">$0.40</text>
+        <text x="197" y="178" fill="#9090a8" font-size="9" text-anchor="middle">Milk</text>
+        <text x="197" y="189" fill="#9090a8" font-size="9" text-anchor="middle">(8%)</text>
+
+        <!-- Coffee beans: 10% = height 25 -->
+        <rect x="213" y="135" width="32" height="25" rx="5" fill="#c8703a"/>
+        <text x="229" y="129" fill="#c8703a" font-size="10" font-weight="700" text-anchor="middle">$0.50</text>
+        <text x="229" y="178" fill="#9090a8" font-size="9" text-anchor="middle">Beans</text>
+        <text x="229" y="189" fill="#9090a8" font-size="9" text-anchor="middle">(10%)</text>
+
+        <!-- X axis -->
+        <line x1="30" y1="160" x2="255" y2="160" stroke="rgba(200,133,58,0.15)" stroke-width="1"/>
+
+        <!-- Note -->
+        <text x="135" y="210" fill="#5a5a78" font-size="9" text-anchor="middle">Farmer receives ~1–3% of retail price</text>
       </svg>
     </div>
-  </div>
 
-  <!-- SECTION 4: Coffee Science + Health -->
-  <div class="grid-3" style="margin-bottom:24px;">
+    <!-- SUSTAINABILITY STATS -->
+    <div class="card">
+      <div class="card-title">Sustainability</div>
+      <div class="card-heading">Environmental Impact</div>
 
-    <!-- Antioxidants / Health -->
-    <div class="chart-card accent-border">
-      <div class="section-title" style="font-size:16px;"><span class="dot"></span>Health Benefits</div>
-      <div class="section-desc" style="font-size:11px;">Research-backed findings</div>
+      <div style="display:flex;flex-direction:column;gap:16px;margin-top:8px;">
+        <div style="background:var(--surface2);border-radius:12px;padding:16px;border:1px solid rgba(255,255,255,0.05);">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+            <span style="font-size:12px;color:var(--text2);">CO₂ per kg of coffee</span>
+            <span style="font-size:18px;font-weight:800;color:#e85555;">15.3kg</span>
+          </div>
+          <div style="font-size:11px;color:var(--text3);line-height:1.5;">One of the more carbon-intensive agricultural products. Shade-grown reduces this by ~40%.</div>
+        </div>
 
-      <div style="display:flex;flex-direction:column;gap:12px;margin-top:8px;">
-        <div style="background:var(--bg3);border-radius:10px;padding:14px;">
-          <div style="font-size:22px;font-weight:800;font-family:'Space Grotesk',sans-serif;color:#4ade80;line-height:1;">-23%</div>
-          <div style="font-size:11px;color:var(--text2);margin-top:4px;">Risk of Type 2 Diabetes (3–4 cups/day)</div>
+        <div style="background:var(--surface2);border-radius:12px;padding:16px;border:1px solid rgba(255,255,255,0.05);">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+            <span style="font-size:12px;color:var(--text2);">Water per cup (140ml)</span>
+            <span style="font-size:18px;font-weight:800;color:#4a90d9;">140L</span>
+          </div>
+          <div style="font-size:11px;color:var(--text3);line-height:1.5;">Includes growing, processing and transport. One of the highest water footprints per beverage.</div>
         </div>
-        <div style="background:var(--bg3);border-radius:10px;padding:14px;">
-          <div style="font-size:22px;font-weight:800;font-family:'Space Grotesk',sans-serif;color:#60a5fa;line-height:1;">-17%</div>
-          <div style="font-size:11px;color:var(--text2);margin-top:4px;">Risk of depression (Harvard School of Public Health)</div>
+
+        <div style="background:var(--surface2);border-radius:12px;padding:16px;border:1px solid rgba(255,255,255,0.05);">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+            <span style="font-size:12px;color:var(--text2);">Certified Sustainable Coffee</span>
+            <span style="font-size:18px;font-weight:800;color:#4caf7d;">40%</span>
+          </div>
+          <div style="font-size:11px;color:var(--text3);line-height:1.5;">Of global supply is Rainforest Alliance, Fair Trade, or UTZ certified as of 2023.</div>
         </div>
-        <div style="background:var(--bg3);border-radius:10px;padding:14px;">
-          <div style="font-size:22px;font-weight:800;font-family:'Space Grotesk',sans-serif;color:#f5c469;line-height:1;">1,000+</div>
-          <div style="font-size:11px;color:var(--text2);margin-top:4px;">Chemical compounds in roasted coffee</div>
-        </div>
-        <div style="background:var(--bg3);border-radius:10px;padding:14px;">
-          <div style="font-size:22px;font-weight:800;font-family:'Space Grotesk',sans-serif;color:#2dd4bf;line-height:1;">+13%</div>
-          <div style="font-size:11px;color:var(--text2);margin-top:4px;">Athletic performance boost (caffeine effect)</div>
+
+        <div style="background:var(--surface2);border-radius:12px;padding:16px;border:1px solid rgba(255,255,255,0.05);">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+            <span style="font-size:12px;color:var(--text2);">Climate change threat</span>
+            <span style="font-size:18px;font-weight:800;color:#e8a84e;">50%</span>
+          </div>
+          <div style="font-size:11px;color:var(--text3);line-height:1.5;">Of current Arabica-growing land projected unsuitable by 2050 due to rising temperatures (World Coffee Research).</div>
         </div>
       </div>
     </div>
 
-    <!-- Coffee Process Steps -->
-    <div class="chart-card" style="grid-column:span 1;">
-      <div class="section-title" style="font-size:16px;"><span class="dot" style="background:var(--purple)"></span>From Farm to Cup</div>
-      <div class="section-desc" style="font-size:11px;">The coffee production journey</div>
+    <!-- COFFEE FACTS / TIMELINE -->
+    <div class="card">
+      <div class="card-title">History & Facts</div>
+      <div class="card-heading">Coffee Timeline</div>
 
-      <div style="margin-top:12px;display:flex;flex-direction:column;gap:10px;">
-        <div style="display:flex;align-items:center;gap:12px;">
-          <div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#c8842a,#f5c469);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-            <span style="font-size:13px;font-weight:800;color:#0a0a0f;">1</span>
-          </div>
-          <div>
-            <div style="font-size:12px;font-weight:600;color:var(--text);">Planting & Growing</div>
-            <div style="font-size:10px;color:var(--text3);">3–4 years to first harvest; grows in the "Bean Belt"</div>
-          </div>
-        </div>
-        <div style="width:1px;height:8px;background:var(--border);margin-left:16px;"></div>
-        <div style="display:flex;align-items:center;gap:12px;">
-          <div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#4ade80,#22c55e);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-            <span style="font-size:13px;font-weight:800;color:#0a0a0f;">2</span>
-          </div>
-          <div>
-            <div style="font-size:12px;font-weight:600;color:var(--text);">Harvesting</div>
-            <div style="font-size:10px;color:var(--text3);">Hand-picked or strip-picked; 1 tree yields ~2kg beans/yr</div>
-          </div>
-        </div>
-        <div style="width:1px;height:8px;background:var(--border);margin-left:16px;"></div>
-        <div style="display:flex;align-items:center;gap:12px;">
-          <div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#60a5fa,#3b82f6);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-            <span style="font-size:13px;font-weight:800;color:#0a0a0f;">3</span>
-          </div>
-          <div>
-            <div style="font-size:12px;font-weight:600;color:var(--text);">Processing</div>
-            <div style="font-size:10px;color:var(--text3);">Wet, dry or honey process to remove fruit</div>
-          </div>
-        </div>
-        <div style="width:1px;height:8px;background:var(--border);margin-left:16px;"></div>
-        <div style="display:flex;align-items:center;gap:12px;">
-          <div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#f472b6,#ec4899);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-            <span style="font-size:13px;font-weight:800;color:#0a0a0f;">4</span>
-          </div>
-          <div>
-            <div style="font-size:12px;font-weight:600;color:var(--text);">Milling & Export</div>
-            <div style="font-size:10px;color:var(--text3);">Hulling, polishing, grading and bagging for export</div>
-          </div>
-        </div>
-        <div style="width:1px;height:8px;background:var(--border);margin-left:16px;"></div>
-        <div style="display:flex;align-items:center;gap:12px;">
-          <div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#a78bfa,#8b5cf6);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-            <span style="font-size:13px;font-weight:800;color:#0a0a0f;">5</span>
-          </div>
-          <div>
-            <div style="font-size:12px;font-weight:600;color:var(--text);">Roasting</div>
-            <div style="font-size:10px;color:var(--text3);">200–230°C; light, medium, dark roast profiles</div>
-          </div>
-        </div>
-        <div style="width:1px;height:8px;background:var(--border);margin-left:16px;"></div>
-        <div style="display:flex;align-items:center;gap:12px;">
-          <div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#2dd4bf,#14b8a6);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-            <span style="font-size:13px;font-weight:800;color:#0a0a0f;">6</span>
-          </div>
-          <div>
-            <div style="font-size:12px;font-weight:600;color:var(--text);">Brewing & Serving</div>
-            <div style="font-size:10px;color:var(--text3);">Ground & brewed within minutes of grinding for best flavor</div>
-          </div>
-        </div>
-      </div>
-    </div>
+      <div style="display:flex;flex-direction:column;gap:0;margin-top:4px;position:relative;">
+        <!-- Timeline line -->
+        <div style="position:absolute;left:34px;top:8px;bottom:8px;width:2px;background:linear-gradient(to bottom,rgba(200,133,58,0.6),rgba(200,133,58,0.1));border-radius:1px;"></div>
 
-    <!-- Fun Facts / Quick Stats -->
-    <div class="chart-card teal-border">
-      <div class="section-title" style="font-size:16px;"><span class="dot" style="background:var(--teal)"></span>Coffee Fast Facts</div>
-      <div class="section-desc" style="font-size:11px;">The numbers that define coffee culture</div>
+        <div style="display:flex;gap:16px;padding:10px 0;align-items:flex-start;">
+          <div style="width:68px;text-align:right;font-size:11px;font-weight:700;color:var(--accent2);flex-shrink:0;">850 AD</div>
+          <div style="width:10px;height:10px;border-radius:50%;background:var(--accent);margin-top:2px;flex-shrink:0;z-index:1;"></div>
+          <div>
+            <div style="font-size:13px;font-weight:600;color:var(--text);">Discovery</div>
+            <div style="font-size:11px;color:var(--text2);">Ethiopian shepherd Kaldi notices goats energized by red berries</div>
+          </div>
+        </div>
 
-      <div style="display:flex;flex-direction:column;gap:10px;margin-top:8px;">
-        <div style="background:var(--bg3);border-left:3px solid #c8842a;border-radius:0 10px 10px 0;padding:12px;">
-          <div style="font-size:13px;font-weight:600;color:var(--text);">2nd Most Traded Commodity</div>
-          <div style="font-size:10px;color:var(--text3);margin-top:2px;">After crude oil globally by value</div>
+        <div style="display:flex;gap:16px;padding:10px 0;align-items:flex-start;">
+          <div style="width:68px;text-align:right;font-size:11px;font-weight:700;color:var(--accent2);flex-shrink:0;">1000 AD</div>
+          <div style="width:10px;height:10px;border-radius:50%;background:var(--accent);margin-top:2px;flex-shrink:0;z-index:1;"></div>
+          <div>
+            <div style="font-size:13px;font-weight:600;color:var(--text);">First Brew</div>
+            <div style="font-size:11px;color:var(--text2);">Arabs begin boiling coffee beans to create "qahwah"</div>
+          </div>
         </div>
-        <div style="background:var(--bg3);border-left:3px solid #60a5fa;border-radius:0 10px 10px 0;padding:12px;">
-          <div style="font-size:13px;font-weight:600;color:var(--text);">Discovered ~850 AD in Ethiopia</div>
-          <div style="font-size:10px;color:var(--text3);margin-top:2px;">Legend of goat-herder Kaldi noticing energized goats</div>
-        </div>
-        <div style="background:var(--bg3);border-left:3px solid #4ade80;border-radius:0 10px 10px 0;padding:12px;">
-          <div style="font-size:13px;font-weight:600;color:var(--text);">~500 Billion Cups Per Year</div>
-          <div style="font-size:10px;color:var(--text3);margin-top:2px;">Global annual coffee consumption estimate</div>
-        </div>
-        <div style="background:var(--bg3);border-left:3px solid #a78bfa;border-radius:0 10px 10px 0;padding:12px;">
-          <div style="font-size:13px;font-weight:600;color:var(--text);">Brazil #1 for 150+ Years</div>
-          <div style="font-size:10px;color:var(--text3);margin-top:2px;">World's largest coffee producer since 1840s</div>
-        </div>
-        <div style="background:var(--bg3);border-left:3px solid #f472b6;border-radius:0 10px 10px 0;padding:12px;">
-          <div style="font-size:13px;font-weight:600;color:var(--text);">50–100 Years Lifespan</div>
-          <div style="font-size:10px;color:var(--text3);margin-top:2px;">Average lifespan of a coffee tree</div>
-        </div>
-        <div style="background:var(--bg3);border-left:3px solid #2dd4bf;border-radius:0 10px 10px 0;padding:12px;">
-          <div style="font-size:13px;font-weight:600;color:var(--text);">First Coffee House 1554</div>
-          <div style="font-size:10px;color:var(--text3);margin-top:2px;">Opened in Istanbul; café culture was born</div>
-        </div>
-      </div>
-    </div>
-  </div>
 
-  <!-- SECTION 5: Top Importing Countries HBAR -->
-  <div class="chart-card" style="margin-bottom:24px;">
-    <div class="section-title"><span class="dot" style="background:var(--accent2)"></span>Top Coffee Importing Countries</div>
-    <div class="section-desc">Thousand metric tons of green coffee imports (2022)</div>
+        <div style="display:flex;gap:16px;padding:10px 0;align-items:flex-start;">
+          <div style="width:68px;text-align:right;font-size:11px;font-weight:700;color:var(--accent2);flex-shrink:0;">1475</div>
+          <div style="width:10px;height:10px;border-radius:50%;background:var(--accent);margin-top:2px;flex-shrink:0;z-index:1;"></div>
+          <div>
+            <div style="font-size:13px;font-weight:600;color:var(--text);">First Café</div>
+            <div style="font-size:11px;color:var(--text2);">World's first coffeehouse "Kiva Han" opens in Constantinople</div>
+          </div>
+        </div>
 
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px 40px;margin-top:10px;">
-      <div>
-        <div class="hbar-item">
-          <div class="hbar-label" style="width:80px;">USA</div>
-          <div class="hbar-track">
-            <div class="hbar-fill" style="width:100%;background:linear-gradient(90deg,#c8842a,#f5c469);">
-              <span class="hbar-val">1,600k t</span>
-            </div>
+        <div style="display:flex;gap:16px;padding:10px 0;align-items:flex-start;">
+          <div style="width:68px;text-align:right;font-size:11px;font-weight:700;color:var(--accent2);flex-shrink:0;">1600s</div>
+          <div style="width:10px;height:10px;border-radius:50%;background:var(--accent);margin-top:2px;flex-shrink:0;z-index:1;"></div>
+          <div>
+            <div style="font-size:13px;font-weight:600;color:var(--text);">Europe Arrives</div>
+            <div style="font-size:11px;color:var(--text2);">Coffee reaches Venice (1600); Lloyd's of London starts as a coffeehouse</div>
           </div>
         </div>
-        <div class="hbar-item">
-          <div class="hbar-label" style="width:80px;">Germany</div>
-          <div class="hbar-track">
-            <div class="hbar-fill" style="width:88%;background:linear-gradient(90deg,#60a5fa,#3b82f6);">
-              <span class="hbar-val">1,410k t</span>
-            </div>
+
+        <div style="display:flex;gap:16px;padding:10px 0;align-items:flex-start;">
+          <div style="width:68px;text-align:right;font-size:11px;font-weight:700;color:var(--accent2);flex-shrink:0;">1901</div>
+          <div style="width:10px;height:10px;border-radius:50%;background:var(--accent);margin-top:2px;flex-shrink:0;z-index:1;"></div>
+          <div>
+            <div style="font-size:13px;font-weight:600;color:var(--text);">Instant Coffee</div>
+            <div style="font-size:11px;color:var(--text2);">Satori Kato patents instant soluble coffee in Chicago</div>
           </div>
         </div>
-        <div class="hbar-item">
-          <div class="hbar-label" style="width:80px;">France</div>
-          <div class="hbar-track">
-            <div class="hbar-fill" style="width:54%;background:linear-gradient(90deg,#a78bfa,#8b5cf6);">
-              <span class="hbar-val">860k t</span>
-            </div>
+
+        <div style="display:flex;gap:16px;padding:10px 0;align-items:flex-start;">
+          <div style="width:68px;text-align:right;font-size:11px;font-weight:700;color:var(--accent2);flex-shrink:0;">1971</div>
+          <div style="width:10px;height:10px;border-radius:50%;background:var(--accent);margin-top:2px;flex-shrink:0;z-index:1;"></div>
+          <div>
+            <div style="font-size:13px;font-weight:600;color:var(--text);">Starbucks Born</div>
+            <div style="font-size:11px;color:var(--text2);">First Starbucks opens in Seattle, sparking 3rd-wave coffee culture</div>
           </div>
         </div>
-        <div class="hbar-item">
-          <div class="hbar-label" style="width:80px;">Italy</div>
-          <div class="hbar-track">
-            <div class="hbar-fill" style="width:47%;background:linear-gradient(90deg,#4ade80,#22c55e);">
-              <span class="hbar-val">750k t</span>
-            </div>
-          </div>
-        </div>
-        <div class="hbar-item">
-          <div class="hbar-label" style="width:80px;">Japan</div>
-          <div class="hbar-track">
-            <div class="hbar-fill" style="width:43%;background:linear-gradient(90deg,#f472b6,#ec4899);">
-              <span class="hbar-val">690k t</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div>
-        <div class="hbar-item">
-          <div class="hbar-label" style="width:80px;">Belgium</div>
-          <div class="hbar-track">
-            <div class="hbar-fill" style="width:40%;background:linear-gradient(90deg,#2dd4bf,#14b8a6);">
-              <span class="hbar-val">630k t</span>
-            </div>
-          </div>
-        </div>
-        <div class="hbar-item">
-          <div class="hbar-label" style="width:80px;">Spain</div>
-          <div class="hbar-track">
-            <div class="hbar-fill" style="width:35%;background:linear-gradient(90deg,#fb923c,#f97316);">
-              <span class="hbar-val">560k t</span>
-            </div>
-          </div>
-        </div>
-        <div class="hbar-item">
-          <div class="hbar-label" style="width:80px;">Canada</div>
-          <div class="hbar-track">
-            <div class="hbar-fill" style="width:30%;background:linear-gradient(90deg,#e879f9,#d946ef);">
-              <span class="hbar-val">475k t</span>
-            </div>
-          </div>
-        </div>
-        <div class="hbar-item">
-          <div class="hbar-label" style="width:80px;">Netherlands</div>
-          <div class="hbar-track">
-            <div class="hbar-fill" style="width:25%;background:linear-gradient(90deg,#34d399,#10b981);">
-              <span class="hbar-val">395k t</span>
-            </div>
-          </div>
-        </div>
-        <div class="hbar-item">
-          <div class="hbar-label" style="width:80px;">UK</div>
-          <div class="hbar-track">
-            <div class="hbar-fill" style="width:20%;background:linear-gradient(90deg,#94a3b8,#64748b);">
-              <span class="hbar-val">315k t</span>
-            </div>
+
+        <div style="display:flex;gap:16px;padding:10px 0;align-items:flex-start;">
+          <div style="width:68px;text-align:right;font-size:11px;font-weight:700;color:var(--accent2);flex-shrink:0;">2024</div>
+          <div style="width:10px;height:10px;border-radius:50%;background:#f5c87a;margin-top:2px;flex-shrink:0;z-index:1;box-shadow:0 0 8px #f5c87a;"></div>
+          <div>
+            <div style="font-size:13px;font-weight:600;color:var(--text);">AI Roasting Era</div>
+            <div style="font-size:11px;color:var(--text2);">AI-powered precision roasting and blockchain traceability go mainstream</div>
           </div>
         </div>
       </div>
@@ -1188,21 +1164,22 @@
 
   <!-- FOOTER -->
   <footer>
-    <div class="sources-title">📚 Sources & References</div>
-    <p>
-      <span>International Coffee Organization (ICO)</span> — Coffee Report & Outlook 2023 · ico.org &nbsp;|&nbsp;
-      <span>Statista</span> — Global Coffee Industry Revenue & Trade Data 2023 · statista.com &nbsp;|&nbsp;
-      <span>USDA Foreign Agricultural Service</span> — Coffee: World Markets and Trade 2023 &nbsp;|&nbsp;
-      <span>Harvard T.H. Chan School of Public Health</span> — The Nutrition Source: Coffee &nbsp;|&nbsp;
-      <span>FDA</span> — Spilling the Beans: How Much Caffeine is Too Much? &nbsp;|&nbsp;
-      <span>Mayo Clinic</span> — Caffeine content for coffee, tea, soda and more &nbsp;|&nbsp;
-      <span>World Coffee Research</span> — Annual Report 2023 · worldcoffeeresearch.org &nbsp;|&nbsp;
-      <span>National Coffee Association USA</span> — NCDT National Coffee Data Trends 2023
-      <br><br>
-      <span style="color:#6060a0;font-size:10px;">★ Projected figures based on Statista & Grand View Research market forecast models. Designed for informational purposes. Data current as of 2023–2024.</span>
-    </p>
+    <div class="sources">
+      <strong>Data Sources & References:</strong><br>
+      • International Coffee Organization (ICO) — <em>Coffee Report & Outlook 2023/24</em> (ico.org) &nbsp;|&nbsp;
+      • World Coffee Research — <em>Annual Report 2023</em> (worldcoffeeresearch.org) &nbsp;|&nbsp;
+      • Statista — <em>Global Coffee Market Statistics 2024</em> (statista.com) &nbsp;|&nbsp;
+      • USDA Foreign Agricultural Service — <em>Coffee: World Markets and Trade 2024</em> &nbsp;|&nbsp;
+      • Harvard T.H. Chan School of Public Health — <em>The Nutrition Source: Coffee</em> (hsph.harvard.edu) &nbsp;|&nbsp;
+      • National Coffee Association USA — <em>NCDT National Coffee Data Trends 2024</em> (ncausa.org) &nbsp;|&nbsp;
+      • Specialty Coffee Association — <em>State of the Specialty Coffee Industry 2023</em> (sca.coffee) &nbsp;|&nbsp;
+      • FDA — <em>Spilling the Beans: How Much Caffeine is Too Much?</em> (fda.gov) &nbsp;|&nbsp;
+      • Water Footprint Network — <em>Product Water Footprints</em> (waterfootprint.org)
+    </div>
+    <div style="color:var(--text3);font-size:10px;margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,0.03);">
+      ☕ Infographic compiled for educational purposes. Statistics represent approximate figures from cited sources. Some values reflect ranges; mid-points or most cited figures used for visualization. © 2024
+    </div>
   </footer>
 
 </div>
-</body>
-</html>
+</body></html>
