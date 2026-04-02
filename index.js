@@ -321,7 +321,7 @@ async function runTopic(cfg, entry) {
 
   const r = await client.messages.create({
     model: 'claude-sonnet-4-6', max_tokens: 32000,
-    messages: [{ role: 'user', content: 'Generate a stunning HTML infographic about: "' + entry.topic + '".' + dataNote + webNote + ' Dark data theme, grid layout, hero stats, SVG charts (VBAR, HBAR, DONUT, LINE). No user images, use SVG illustrations. Max 4-5 chart sections. NEVER use <progress>, <meter>, <input>, <audio>, <video> or any native HTML form/media elements. All progress bars must be pure div-based with inline styles. Always end with </body></html>. Output ONLY raw HTML.' }]
+    messages: [{ role: 'user', content: 'Generate a stunning HTML infographic about: "' + entry.topic + '".' + dataNote + webNote + (entry.customPrompt ? '\n\nADDITIONAL USER INSTRUCTIONS (follow these carefully):\n' + entry.customPrompt : '') + ' Dark data theme, grid layout, hero stats, SVG charts (VBAR, HBAR, DONUT, LINE). No user images, use SVG illustrations. Max 4-5 chart sections. Always end with </body></html>. Output ONLY raw HTML.' }]
   });
   let h = r.content.map(b => b.type === 'text' ? b.text : '').join('');
   h = h.replace(/^```html\s*/i, '').replace(/```\s*$/, '').trim();
@@ -394,22 +394,22 @@ async function runTopic(cfg, entry) {
 }
 
 // ── Cron scheduling ─────────────────────────────────────────────────────────
-let paused = false;
-
 function scheduleCrons(cfg) {
   activeCrons.forEach(c => c.stop()); activeCrons = [];
-  paused = false;
   if (!cfg?.schedule?.length) { console.log('No schedule'); return; }
   const hr = cfg.hour || '09', min = cfg.minute || '00';
   const days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-  cfg.schedule.forEach(entry => {
+  cfg.schedule.forEach((entry, idx) => {
     if (entry.enabled === false) { console.log('Disabled:', entry.topic); return; }
     const job = cron.schedule(min + ' ' + hr + ' * * ' + entry.dow, () => {
-      if (paused) { console.log('Paused, skipping:', entry.topic); return; }
+      console.log('Firing (once):', entry.topic);
+      // Stop this cron immediately so it never fires again
+      job.stop();
+      activeCrons = activeCrons.filter(c => c !== job);
       runTopic(cfg, entry).catch(e => console.error('Pipeline failed:', e.message));
     }, { timezone: 'America/New_York' });
     activeCrons.push(job);
-    console.log('Scheduled:', entry.topic, days[entry.dow], hr + ':' + min, 'EST');
+    console.log('Scheduled (once):', entry.topic, days[entry.dow], hr + ':' + min, 'EST');
   });
 }
 
@@ -431,17 +431,18 @@ app.post('/config', async (req, res) => {
   } catch(e) { res.status(500).json({ error: e.message }); }
 });
 
-app.post('/pause', (req, res) => {
-  paused = true;
-  console.log('All crons paused');
-  res.json({ status: 'paused', activeCrons: activeCrons.length });
+app.post('/cancel', (req, res) => {
+  activeCrons.forEach(c => c.stop());
+  activeCrons = [];
+  console.log('All crons cancelled');
+  res.json({ status: 'cancelled', crons: 0 });
 });
 
 app.post('/resume', (req, res) => {
   const cfg = loadConfig();
   if (!cfg) return res.status(400).json({ error: 'No config' });
-  paused = false;
-  console.log('Crons resumed');
+  scheduleCrons(cfg);
+  console.log('Crons rescheduled');
   res.json({ status: 'resumed', crons: activeCrons.length });
 });
 
